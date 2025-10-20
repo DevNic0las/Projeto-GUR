@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   flask-app:
+    profiles: ["flask", "full"]
     build: 
       context: .
       dockerfile: Dockerfile
@@ -12,4 +13,17 @@ services:
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
+      - SPARK_URL=http://spark:8080
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+
+  spark:
+    profiles: ["spark", "full"]  
+    image: apache/spark:3.5.0
+    container_name: spark
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "8080:8080"  # interface web do Spark
+      - "7077:7077"  # porta do master Spark
+    volumes:
+      - ./spark:/opt/spark/work-dir
