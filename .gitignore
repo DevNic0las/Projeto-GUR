@@ -24,7 +24,7 @@ app/*
 spark/*
 !spark/main.py
 !app/requirements.txt
-
+!spark/Dockerfile
 
 # ✅ PERMITIR shared (dados compartilhados)
 !shared/

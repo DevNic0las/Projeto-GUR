@@ -18,8 +18,10 @@ services:
 
   spark:
     profiles: ["backend"] 
-    image: apache/spark:3.5.0
+    build:
+      context: ./spark
     container_name: spark
+    user: root
     environment:
       - SPARK_MODE=master
     ports:
@@ -27,3 +29,4 @@ services:
       - "7077:7077"  # porta do master Spark
     volumes:
       - ./spark:/opt/spark/work-dir
+    command: ["/bin/bash", "-c", "tail -f /dev/null"]
