@@ -21,9 +21,13 @@ app/*
 
 # ✅ PERMITIR pasta spark (Spark - backend/processamento)
 !spark/
-spark/*
-!spark/main.py
-!app/requirements.txt
+!spark/src/
+!spark/src/utils/
+!spark/src/utils/**
+!spark/src/etl/
+!spark/src/etl/**
+!spark/src/main.py
+!spark/requirements.txt
 !spark/Dockerfile
 
 # ✅ PERMITIR shared (dados compartilhados)
