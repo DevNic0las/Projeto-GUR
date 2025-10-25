@@ -1,23 +1,13 @@
-# main.py - CORRIGIDO
-from utils.spark_session import create_spark_session
-from etl.extract_csv import extract_csv
-from etl.transform_service import transform_data_with_rdd
+# main.py
+from pipelines.teste_pipeline import TestePipeline
 
 def main():
-    spark = create_spark_session()
+    print("TestePipeline...")
     
-    path = "./data/csv/sim_cnv_obt10uf102651168_121_193_221.csv"
+    pipeline = TestePipeline()
+    pipeline.execute_analysis()
     
-    # Extrair como RDD
-    rdd = extract_csv(spark, path)
-    
-    # Transformar RDD em DataFrame limpo
-    df_clean = transform_data_with_rdd(rdd)
-    
-    print("✅ DATAFRAME LIMPO:")
-    df_clean.show(truncate=False)
-    
-    spark.stop()
+    print("Pipeline executado")
 
 if __name__ == "__main__":
     main()
