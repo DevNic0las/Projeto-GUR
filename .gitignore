@@ -1,44 +1,26 @@
-# IGNORAR TUDO por padrão
+# ========================
+# 🚫 IGNORAR TUDO
+# ========================
 *
 
-# ✅ PERMITIR arquivos raiz importantes
+# ========================
+# ✅ CÓDIGO FONTE
+# ========================
+!.gitignore
 !README.md
 !docker-compose.yml
-!.gitignore
+!requirements.txt
 
-# ✅ PERMITIR pasta app (Flask - frontend/API)
 !app/
-app/*
-!app/app.py
-!app/requirements.txt
-!app/Dockerfile
-!app/templates/
-!app/templates/**
-!app/static/
-!app/static/**
-!app/routes.py
+!app/**/*
 
-
-# ✅ PERMITIR pasta spark (Spark - backend/processamento)
 !spark/
-!spark/src/
-!spark/src/utils/
-!spark/src/utils/**
-!spark/src/etl/
-!spark/src/etl/**
-!spark/src/main.py
-!spark/requirements.txt
-!spark/Dockerfile
-!spark/src/pipelines/
-spark/data/
-spark/src/data/*
-# ✅ PERMITIR shared (dados compartilhados)
-!shared/
-!shared/**
+!spark/src/**/*
 
-# ❌ IGNORAR sempre
+
+
 **/__pycache__/
+**/*.pyc
 **/.env
 **/*.log
 **/.DS_Store
-**/.vscode/
