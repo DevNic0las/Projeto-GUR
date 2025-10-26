@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   flask-app:
@@ -13,20 +14,47 @@ services:
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
-      - SPARK_URL=http://spark:8080
+      - SPARK_URL=http://spark-master:8080  # Corrigido: spark → spark-master
     command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+    networks:
+      - spark-network
 
-  spark:
+  spark-master:
     profiles: ["backend"] 
     build:
       context: ./spark
-    container_name: spark
-    user: root
-    environment:
-      - SPARK_MODE=master
+    container_name: spark-master 
     ports:
-      - "8080:8080"  # interface web do Spark
-      - "7077:7077"  # porta do master Spark
+      - "8080:8080"  #Site
+      - "7077:7077"  #spark
     volumes:
       - ./spark:/opt/spark/work-dir
-    command: ["/bin/bash", "-c", "tail -f /dev/null"]
+    command: ["/bin/bash", "-c", "/opt/spark/start-master.sh"]
+    networks:
+      - spark-network  
+
+  spark-worker-1:
+    profiles: ["backend"]
+    build:
+      context: ./spark
+    container_name: spark-worker-1
+    depends_on:
+      - spark-master
+    command: ["/bin/bash", "-c", "/opt/spark/start-worker.sh"]
+    networks:
+      - spark-network
+
+  spark-worker-2:  
+    profiles: ["backend"]
+    build:
+      context: ./spark
+    container_name: spark-worker-2
+    depends_on:
+      - spark-master
+    command: ["/bin/bash", "-c", "/opt/spark/start-worker.sh"]
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge

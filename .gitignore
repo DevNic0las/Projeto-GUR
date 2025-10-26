@@ -1,22 +1,29 @@
-# ========================
-# 🚫 IGNORAR TUDO
-# ========================
+
 *
 
-# ========================
-# ✅ CÓDIGO FONTE
-# ========================
+
 !.gitignore
 !README.md
 !docker-compose.yml
 !requirements.txt
 
+
 !app/
 !app/**/*
 
+
 !spark/
+!spark/src/
 !spark/src/**/*
 
+
+!shared/
+!shared/**/*
+
+
+**/data/raw/
+**/data/processed/
+**/data/output/
 
 
 **/__pycache__/
@@ -24,3 +31,6 @@
 **/.env
 **/*.log
 **/.DS_Store
+**/*.swp
+**/*.save
+**/.vscode/
