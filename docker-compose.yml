@@ -54,7 +54,17 @@ services:
     command: ["/bin/bash", "-c", "/opt/spark/start-worker.sh"]
     networks:
       - spark-network
-
+  mongodb:
+    profiles: ["database"]
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+    - "27017:27017"
+    environment:
+       - MONGO_INITDB_ROOT_USERNAME=admin
+       - MONGO_INITDB_ROOT_PASSWORD=senha123
+    volumes:
+      - ./database/data:/data/db
 networks:
   spark-network:
     driver: bridge
