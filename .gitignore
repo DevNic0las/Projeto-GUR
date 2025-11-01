@@ -3,6 +3,10 @@
 !docker-compose.yml
 !requirements.txt
 
+# ✅ PRIMEIRO ignore tudo
+*
+
+# ✅ DEPOIS permita apenas as pastas importantes
 !app/
 !app/**/*
 
@@ -13,33 +17,28 @@
 !database/
 !database/**/*
 
+
 !shared/
 !shared/**/*
 
-
-
-**/.vscode/
-**/.idea/
-**/*.swp
-**/*.swo
-**/*.save
-**/*.tmp
-
-
+# ✅ AGORA sim, ignore os arquivos temporários
 **/__pycache__/
 *.pyc
 **/*.pyo
 **/*.pyd
 **.pyc
 
-
+# Resto do gitignore...
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*.save
+**/*.tmp
 **/*.log
 **/logs/
-
 **/database/data/
-
 **/data/raw/
 **/data/processed/
 **/data/output/
 **/data/temp/
-
