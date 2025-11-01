@@ -1,36 +1,45 @@
-
-*
-
-
 !.gitignore
 !README.md
 !docker-compose.yml
 !requirements.txt
 
-
 !app/
 !app/**/*
-
 
 !spark/
 !spark/src/
 !spark/src/**/*
+
 !database/
+!database/**/*
 
 !shared/
 !shared/**/*
 
 
-**/data/raw/
-**/data/processed/
-**/data/output/
+
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*.save
+**/*.tmp
 
 
 **/__pycache__/
 **/*.pyc
-**/.env
+**/*.pyo
+**/*.pyd
+**.pyc
+
+
 **/*.log
-**/.DS_Store
-**/*.swp
-**/*.save
-**/.vscode/
+**/logs/
+
+**/database/data/
+
+**/data/raw/
+**/data/processed/
+**/data/output/
+**/data/temp/
+
