@@ -27,7 +27,7 @@
 
 
 **/__pycache__/
-**/*.pyc
+*.pyc
 **/*.pyo
 **/*.pyd
 **.pyc
