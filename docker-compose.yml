@@ -10,14 +10,20 @@ services:
     ports:
       - "5001:5000"
     volumes:
-      - ./app:/app
+      - ./app:/app           # ✅ Seu código Flask
+      - ./database:/app/database  # ✅ Código do database
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
-      - SPARK_URL=http://spark-master:8080  # Corrigido: spark → spark-master
-    command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+      - SPARK_URL=http://spark-master:8080
+      - PYTHONPATH=/app:/app/database  # ✅ Caminhos absolutos
+      - FLASK_APP=run.py              # ✅ Especifica o entry point
+    command: ["python", "-m", "flask_package.run"]     # ✅ Execute diretamente
+    
     networks:
       - spark-network
+
+    
 
   spark-master:
     profiles: ["backend"] 
@@ -29,8 +35,10 @@ services:
       - "7077:7077"  #spark
     volumes:
       - ./spark:/opt/spark/work-dir
+      - ./database:/opt/database
     environment:
       - SPARK_MODE=master
+      - PYTHONPATH=/opt/spark/work-dir:/opt  
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     networks:
       - spark-network  
@@ -78,6 +86,8 @@ services:
        - MONGO_INITDB_ROOT_PASSWORD=senha123
     volumes:
       - ./database/data:/data/db
+    networks:
+      - spark-network
 networks:
   spark-network:
     driver: bridge

@@ -1,6 +1,7 @@
-# main.py
 from pipelines.teste_pipeline import TestePipeline
 from utils.spark_session import create_spark_session
+from database.initdatabase import initdatabase
+from database.collection.user_collection import get_users_all  
 def main():
     print("TestePipeline...")
     
@@ -8,30 +9,16 @@ def main():
     pipeline.execute_analysis()
     
     print("Pipeline executado")
-def check_executor_configuration(spark):
-    """Verifica configuração completa dos executors"""
-    
-    # Configurações atuais
-    conf = spark.sparkContext.getConf()
-    
-    print("=== CONFIGURAÇÕES DOS EXECUTORS ===")
-    configs_to_check = [
-        "spark.executor.memory",
-        "spark.executor.cores", 
-        "spark.executor.instances",
-        "spark.dynamicAllocation.enabled",
-        "spark.dynamicAllocation.minExecutors",
-        "spark.dynamicAllocation.maxExecutors",
-        "spark.memory.fraction",
-        "spark.memory.storageFraction"
-    ]
-    
-    for config in configs_to_check:
-        value = conf.get(config, "Não configurado")
-        print(f"{config}: {value}")
 
-# Usar
-spark = create_spark_session("ConfigCheck")
-check_executor_configuration(spark)  
+
+
+print("Tetando conexão com o banco")
+db = initdatabase() 
+users = get_users_all(db)
+for item in users:
+    print(users)
+
+
+
 if __name__ == "__main__":
     main()

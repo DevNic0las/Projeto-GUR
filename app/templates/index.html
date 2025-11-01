@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    teste
+    {%if hospital_find%}
+    {{hospital_find}}
+
+
+{% else %}
+    <p>Hospital não encontrado</p>
+    {%endif%}
 </body>
 </html>
