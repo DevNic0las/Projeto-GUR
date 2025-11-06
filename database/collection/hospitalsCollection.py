@@ -1,4 +1,5 @@
 from database.schemas.hospitals_schemas import HOSPITALS_SCHEMA
+from database.initdatabase import initdatabase
 def create_hospitals_collection(db):
         if "hospitals" not in db.list_collection_names():
             db.create_collection(
@@ -12,5 +13,6 @@ def create_hospitals_collection(db):
             print("✅ Coleção 'hospitals' já existe!")
         
         return db.hospitals
+
 
     

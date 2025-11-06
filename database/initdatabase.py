@@ -11,8 +11,8 @@ def initdatabase():
     
     print("Conectado ao MongoDB no Docker!")
     db = client['database']
-    create_hospitals_collection(db)
+    hospital_col = create_hospitals_collection(db)
     
-    return db
+    return hospital_col
 if __name__ == "__main__":
     initdatabase()
