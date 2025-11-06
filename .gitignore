@@ -1,34 +1,36 @@
+# ✅ Permitir arquivos essenciais na raiz
 !.gitignore
 !README.md
 !docker-compose.yml
 !requirements.txt
 
-# ✅ PRIMEIRO ignore tudo
+# ✅ PRIMEIRO: ignore tudo
 *
 
-# ✅ DEPOIS permita apenas as pastas importantes
+# ✅ DEPOIS: permita apenas as pastas de código-fonte
 !app/
 !app/**/*
-
 !spark/
 !spark/src/
 !spark/src/**/*
-
 !database/
 !database/**/*
-
-
 !shared/
 !shared/**/*
 
-# ✅ AGORA sim, ignore os arquivos temporários
+# ✅ AGORA: ignore tudo o que for cache, compilado ou temporário, mesmo dentro das pastas permitidas
+
+# Ignorar todos os caches de Python em qualquer nível
+__pycache__/
 **/__pycache__/
 *.pyc
+**/*.pyc
+*.pyo
 **/*.pyo
+*.pyd
 **/*.pyd
-**.pyc
 
-# Resto do gitignore...
+# Ignorar diretórios de dados locais, logs e temporários
 **/.vscode/
 **/.idea/
 **/*.swp
@@ -37,8 +39,19 @@
 **/*.tmp
 **/*.log
 **/logs/
+**/log/
+**/tmp/
+**/temp/
+
+# Ignorar dados de bancos locais (MongoDB, etc.)
 **/database/data/
 **/data/raw/
 **/data/processed/
 **/data/output/
 **/data/temp/
+
+# Ignorar dados gerados por Spark
+spark/src/data/parquet/
+*.parquet
+*.crc
+_SUCCESS
