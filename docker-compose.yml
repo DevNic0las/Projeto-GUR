@@ -10,8 +10,8 @@ services:
     ports:
       - "5001:5000"
     volumes:
-      - ./app:/app          
-      - ./database:/app/database 
+      - ./app:/app           # ✅ Seu código Flask
+      - ./database:/app/database  # ✅ Código do database
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
