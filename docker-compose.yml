@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  flask-app:
+    profiles: ["frontend"]
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: flask
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./app:/app          
+      - ./database:/app/database 
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - SPARK_URL=http://spark-master:8080
+      - PYTHONPATH=/app:/app/database  
+      - FLASK_APP=run.py             
+    command: ["python", "-m", "flask_package.run"]     
+    
+    networks:
+      - spark-network
+
+    
+
+  spark-master:
+    profiles: ["backend"] 
+    build:
+      context: ./spark
+    container_name: spark-master 
+    ports:
+      - "8080:8080"  #Site
+      - "7077:7077"  #spark
+    volumes:
+      - ./spark:/opt/spark/work-dir
+      - ./database:/opt/database
+    environment:
+      - SPARK_MODE=master
+      - PYTHONPATH=/opt/spark/work-dir:/opt  
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+    networks:
+      - spark-network  
+
+  spark-worker-1:
+    profiles: ["backend"]
+    build:
+      context: ./spark
+    container_name: spark-worker-1
+    ports:
+       - 8081:8081
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER= spark://spark-master:7077
+    command:  /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    networks:
+      - spark-network
+
+  spark-worker-2:  
+    profiles: ["backend"]
+    build:
+      context: ./spark
+    container_name: spark-worker-2
+    ports:
+       - 8082:8082
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER= spark://spark-master:7077
+    command:  /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    networks:
+      - spark-network
+
+  mongodb:
+    profiles: ["database"]
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+    - "27017:27017"
+    environment:
+       - MONGO_INITDB_ROOT_USERNAME=admin
+       - MONGO_INITDB_ROOT_PASSWORD=senha123
+    volumes:
+      - ./database/data:/data/db
+    networks:
+      - spark-network
+networks:
+  spark-network:
+    driver: bridge

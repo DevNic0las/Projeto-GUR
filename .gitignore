@@ -1,38 +1,57 @@
-# IGNORAR TUDO por padrão
-*
-
-# ✅ PERMITIR arquivos raiz importantes
+# ✅ Permitir arquivos essenciais na raiz
+!.gitignore
 !README.md
 !docker-compose.yml
-!.gitignore
+!requirements.txt
 
-# ✅ PERMITIR pasta app (Flask - frontend/API)
+# ✅ PRIMEIRO: ignore tudo
+*
+
+# ✅ DEPOIS: permita apenas as pastas de código-fonte
 !app/
-app/*
-!app/app.py
-!app/requirements.txt
-!app/Dockerfile
-!app/templates/
-!app/templates/**
-!app/static/
-!app/static/**
-!app/routes.py
-
-
-# ✅ PERMITIR pasta spark (Spark - backend/processamento)
+!app/**/*
 !spark/
-spark/*
-!spark/main.py
-!app/requirements.txt
-
-
-# ✅ PERMITIR shared (dados compartilhados)
+!spark/src/
+!spark/src/**/*
+!database/
+!database/**/*
 !shared/
-!shared/**
+!shared/**/*
 
-# ❌ IGNORAR sempre
+# ✅ AGORA: ignore tudo o que for cache, compilado ou temporário, mesmo dentro das pastas permitidas
+
+# Ignorar todos os caches de Python em qualquer nível
+__pycache__/
 **/__pycache__/
-**/.env
-**/*.log
-**/.DS_Store
+*.pyc
+**/*.pyc
+*.pyo
+**/*.pyo
+*.pyd
+**/*.pyd
+
+# Ignorar diretórios de dados locais, logs e temporários
 **/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*.save
+**/*.tmp
+**/*.log
+**/logs/
+**/log/
+**/tmp/
+**/temp/
+
+# Ignorar dados de bancos locais (MongoDB, etc.)
+**/database/data/
+**/data/raw/
+**/data/processed/
+**/data/output/
+**/data/temp/
+
+# Ignorar dados gerados por Spark
+spark/src/data/parquet/
+*.parquet
+*.crc
+_SUCCESS
