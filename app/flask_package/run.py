@@ -1,5 +1,5 @@
 from flask_package import create_app
-from database.initdatabase import initdatabase
+from database.init_database import init_database
 app = create_app()
 
 if __name__ == '__main__':

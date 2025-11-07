@@ -1,7 +1,7 @@
 HOSPITALS_SCHEMA = {
     "$jsonSchema": {
         "bsonType": "object",
-        "required": ["name", "location"],
+        "required": ["name", "location", "illness"],
         "properties": {
             "name": {
                 "bsonType": "string",  
@@ -12,6 +12,13 @@ HOSPITALS_SCHEMA = {
             "location": {
                 "bsonType": "string",  # ✅ "string" minúsculo
                 "description": "Localização - obrigatório"  # ✅ ortografia
+            },
+            "illness": {
+                "bsonType": "array",
+                "description": "Lista de doenças tratadas pelo hospital",
+                 "items": {
+                     "bsonType": "string"
+                 }
             }
             
         }

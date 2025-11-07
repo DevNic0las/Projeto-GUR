@@ -1,7 +1,7 @@
 from pipelines.teste_pipeline import TestePipeline
 from utils.spark_session import create_spark_session
-from database.initdatabase import initdatabase
-from database.collection.user_collection import get_users_all  
+from database.init_database import init_database
+ 
 def main():
     print("TestePipeline...")
     
@@ -13,10 +13,7 @@ def main():
 
 
 print("Tetando conexão com o banco")
-db = initdatabase() 
-users = get_users_all(db)
-for item in users:
-    print(users)
+db = init_database() 
 
 
 
