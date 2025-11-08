@@ -1,17 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Urgência Recife.com.br - GUR.com.br</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='principal.css')}}">
 </head>
+
 <body>
-    {%if hospital_find%}
-    {{hospital_find}}
+
+  <!--Inicio do Banner da Página Inicial-->
+  <div class="banner">
+    <div class="container-fluid">
+      <div class="navbar navbar-expand-lg navbar-light ">
+        <div class="logo">
+          <img src="../flask_package/static/img/logo.jpeg" alt="GUR">
+        </div>
+
+        <!-- Botão do Menu Hambúrguer -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
+          aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
 
-{% else %}
-    <p>Hospital não encontrado</p>
-    {%endif%}
+        <!-- Menu de Navegação -->
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">INÍCIO</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicos">SERVIÇOS</a></li>
+            <li class="nav-item"><a class="nav-link" href="#locais">LOCAIS</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="coluna-1">
+        <h2>Nosso Objetivo</h2>
+        <p>Em um momento de urgência, a gente sabe que a informação correta faz toda a diferença. Por isso, estamos aqui para te guiar. Nosso objetivo é dar a você o direito de saber onde ir e qual  atendimento é o melhor para sua necessidade. Porque a sua vida e a sua saúde são o que mais importa para nós.</p>
+        <br>
+        <a href="#empresaModal" data-toggle="modal" class="btn">Mais Informações ➔  </a>
+      </div>
+    </div>
+  </div>
+
+<form>
+  <div class="meuFormulario">
+    <label for="sintoma-select">Problema 1:</label>
+    <select class="form-control">
+      <option value="">Por favor, selecione ou digite --</option>
+      </select>
+    <label for="sintoma-select">Problema 2:</label>
+    <select class="form-control">
+      <option value="">Por favor, selecione ou digite --</option>
+      </select>
+    
+    <label for="sintoma-select">Problema 3:</label>
+    <select class="form-control">
+      <option value="">Por favor, selecione ou digite --</option>
+      </select>
+    
+    <label for="sintoma-select">Problema 4:</label>
+    <select class="form-control">
+      <option value="">Por favor, selecione ou digite --</option>
+      </select>
+    
+    <label for="sintoma-select">Problema 5:</label>
+    <select class="form-control">
+      <option value="">Por favor, selecione ou digite --</option>
+      </select>
+
+    <br> <button type="submit" class="btn-formulario">Enviar</button>
+    
+  </div>
+</form>
+
+
+  <div class="coluna-2">
+    <h2 id="servicos">Serviços</h2>
+     <p>Nós entendemos que cada problema de saúde é único. Por isso, o nosso serviço foi pensado para você: te guiar de forma rápida e segura para o atendimento mais eficaz. Sugerimos as UPAs e Hospitais com a emergência certa para a sua necessidade, para que você tenha a tranquilidade de saber que está no caminho certo.</p>
+    <br>
+
+    <div id="locais" class="container my-5">
+      <div class="servicos row">
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <button class="btn-navegacao btn-block">UPAs</button>
+        </div>
+
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <button class="btn-navegacao btn-block">EMERGÊNCIAS</button>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <button class="btn-navegacao btn-block">ESPECIALIDADES</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="rodape">
+
+    <div class="container">
+      <div class="row">
+
+        <div class="rodape-col-1">
+          <h3>Baixe o nosso app</h3>
+          <p>Baixe o nosso aplicativo nas melhores plataformas.</p>
+          <div class="app-logo">
+            <img src="img/play.png" alt="">
+            <img src="img/apple.png" alt="">
+          </div>
+        </div>
+
+        <div class="rodape-col-2">
+          <img src="img/logo.jpeg" alt="GUR">
+        </div>
+
+        <div class="rodape-col-3">
+          <h3>Mais Informações</h3>
+          <ul>
+            <li style="cursor: pointer;">Política de Privacidade</li>
+            <li style="cursor: pointer;">Contatos</li>
+          </ul>
+        </div>
+
+      </div>
+      <hr>
+      <p class="direitos">
+        &#169; Todos os Direitos Reservados.
+      </p>
+
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

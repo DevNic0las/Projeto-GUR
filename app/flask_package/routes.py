@@ -3,11 +3,8 @@ from pymongo import MongoClient
 def create_blueprint(hospital_col: MongoClient):
     web = Blueprint('web', __name__)
     
-    @web.route("/hospital/<name>")
-    def index(name):
-       
-        hospital = hospital_col.find_one({"name": name})
-
-        return render_template("index.html", hospital_find=hospital)
+    @web.route("/")
+    def index():
+        return render_template("index.html")
     
     return web
