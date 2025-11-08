@@ -18,7 +18,7 @@ def create_hospitals_collection(db):
 
 def initdatabase():
     client = MongoClient(
-        host='localhost',
+        host='mongodb',
         port=27017,
         username='admin',
         password='senha123'

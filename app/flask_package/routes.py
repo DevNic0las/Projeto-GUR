@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,request
 from pymongo import MongoClient
 def create_blueprint(hospital_col: MongoClient):
     web = Blueprint('web', __name__)
