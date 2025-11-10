@@ -1,17 +1,17 @@
 HOSPITALS_SCHEMA = {
     "$jsonSchema": {
         "bsonType": "object",
-        "required": ["name", "location", "illness"],
+        "required": ["name", "location", "illness", "specialty", "type"],
         "properties": {
             "name": {
                 "bsonType": "string",  
                 "minLength": 5,
                 "maxLength": 100,      
-                "description": "Nome do hospital - obrigatório"  #
+                "description": "Nome do hospital - obrigatório"  
             },
             "location": {
-                "bsonType": "string",  # ✅ "string" minúsculo
-                "description": "Localização - obrigatório"  # ✅ ortografia
+                "bsonType": "string",  
+                "description": "Localização - obrigatório"  
             },
             "illness": {
                 "bsonType": "array",
@@ -19,8 +19,21 @@ HOSPITALS_SCHEMA = {
                  "items": {
                      "bsonType": "string"
                  }
+            },
+            "type": {
+                "bsonType": "string",
+                "description": "Tipo de emergência"
+            },
+            "specialty":{
+                "bsonType": "array",
+                "description": "Especialidade do hospital",
+                "items": {
+                    "bsonType": "string"
+                }
             }
             
         }
     }
 }
+
+
