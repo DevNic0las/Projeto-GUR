@@ -7,6 +7,7 @@ class TestePipeline(BasePipeline):
 
     def execute_analysis(self) -> DataFrame:
         # Extrair dados
+        """
         data = self.extract_data('./data/csv/sim_cnv_obt10uf102651168_121_193_221.csv')
         
      
@@ -26,3 +27,9 @@ class TestePipeline(BasePipeline):
         
       
         return df
+        """
+    
+if __name__ == "__main__":
+  
+    print("Teste pipeline executado")
+   

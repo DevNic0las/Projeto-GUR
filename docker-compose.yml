@@ -10,8 +10,8 @@ services:
     ports:
       - "5001:5000"
     volumes:
-      - ./app:/app           # ✅ Seu código Flask
-      - ./database:/app/database  # ✅ Código do database
+      - ./app:/app           
+      - ./database:/app/database  
     environment:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
@@ -38,7 +38,7 @@ services:
       - ./database:/opt/database
     environment:
       - SPARK_MODE=master
-      - PYTHONPATH=/opt/spark/work-dir:/opt  
+      - PYTHONPATH=/opt/spark/work-dir/src:/opt  
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     networks:
       - spark-network  
@@ -52,8 +52,13 @@ services:
        - 8081:8081
     depends_on:
       - spark-master
+    volumes:
+      - ./spark:/opt/spark/work-dir
+      - ./database:/opt/database
+       
     environment:
       - SPARK_MODE=worker
+      - PYTHONPATH=/opt/spark/work-dir/src:/opt  
       - SPARK_MASTER= spark://spark-master:7077
     command:  /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     networks:
@@ -68,8 +73,12 @@ services:
        - 8082:8082
     depends_on:
       - spark-master
+    volumes:
+      - ./spark:/opt/spark/work-dir
+      - ./database:/opt/database
     environment:
       - SPARK_MODE=worker
+      - PYTHONPATH=/opt/spark/work-dir/src:/opt  
       - SPARK_MASTER= spark://spark-master:7077
     command:  /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     networks:

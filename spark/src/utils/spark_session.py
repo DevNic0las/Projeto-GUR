@@ -8,11 +8,15 @@ def create_spark_session(name_app : str) ->SparkSession:
     .config("spark.driver.cores", "2") \
     .config("spark.executor.cores", "2") \
     .config("spark.sql.adaptive.enabled", "true")\
+    .config("spark.driver.host", "spark-master")\
     .getOrCreate()\
 
 
     
-   
+if __name__ == "__main__":
+    test = create_spark_session("TEST")
+    print(test.version)
+    test.stop()
 
 
 
