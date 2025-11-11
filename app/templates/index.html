@@ -5,28 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guia de Urgência Recife.com.br - GUR.com.br</title>
-  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{url_for('static', filename='principal.css')}}">
-</head>
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/principal.css">
+
+  </head>
 
 <body>
 
-  <!--Inicio do Banner da Página Inicial-->
   <div class="banner">
     <div class="container-fluid">
       <div class="navbar navbar-expand-lg navbar-light ">
         <div class="logo">
-          <img src="../flask_package/static/img/logo.jpeg" alt="GUR">
+          <img src="img/logo.jpeg" alt="GUR">
         </div>
 
-        <!-- Botão do Menu Hambúrguer -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
           aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
 
-        <!-- Menu de Navegação -->
         <div class="collapse navbar-collapse" id="navbarMenu">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a class="nav-link" href="index.html">INÍCIO</a></li>
@@ -49,59 +48,394 @@
     </div>
   </div>
 
-<form>
-  <div class="meuFormulario">
-    <label for="sintoma-select">Problema 1:</label>
-    <select class="form-control">
-      <option value="">Por favor, selecione ou digite --</option>
-      </select>
-    <label for="sintoma-select">Problema 2:</label>
-    <select class="form-control">
-      <option value="">Por favor, selecione ou digite --</option>
-      </select>
-    
-    <label for="sintoma-select">Problema 3:</label>
-    <select class="form-control">
-      <option value="">Por favor, selecione ou digite --</option>
-      </select>
-    
-    <label for="sintoma-select">Problema 4:</label>
-    <select class="form-control">
-      <option value="">Por favor, selecione ou digite --</option>
-      </select>
-    
-    <label for="sintoma-select">Problema 5:</label>
-    <select class="form-control">
-      <option value="">Por favor, selecione ou digite --</option>
-      </select>
-
-    <br> <button type="submit" class="btn-formulario">Enviar</button>
-    
-  </div>
-</form>
-
-
+  <form>
+    <div class="meuFormulario">
+      <div class="form-group autocomplete-wrapper">
+        
+        <label for="sintomaInput">
+          Digite os seus sintomas (até 5):
+        </label>
+        <input type="text" 
+               id="sintomaInput" 
+               class="form-control" 
+               placeholder="Digite 'Dor', 'Febre', 'Tosse'...">
+        
+        <div id="autocompleteResultBox" class="list-group autocomplete-results">
+            </div>
+      </div>
+  
+      <div id="selectedSintomasBox" class="mb-3">
+        </div>
+  
+      <br>
+      <button type="submit" id="enviarFormulario" class="btn-formulario">Enviar</button>
+    </div>
+  </form>
+  
   <div class="coluna-2">
     <h2 id="servicos">Serviços</h2>
-     <p>Nós entendemos que cada problema de saúde é único. Por isso, o nosso serviço foi pensado para você: te guiar de forma rápida e segura para o atendimento mais eficaz. Sugerimos as UPAs e Hospitais com a emergência certa para a sua necessidade, para que você tenha a tranquilidade de saber que está no caminho certo.</p>
+      <p>Nós entendemos que cada problema de saúde é único. Por isso, o nosso serviço foi pensado para você: te guiar de forma rápida e segura para o atendimento mais eficaz. Sugerimos as UPAs e Hospitais com a emergência certa para a sua necessidade, para que você tenha a tranquilidade de saber que está no caminho certo.</p>
     <br>
 
     <div id="locais" class="container my-5">
-      <div class="servicos row">
+    <div class="servicos row">
+        
         <div class="col-12 col-md-4 mb-2 mb-md-0">
-          <button class="btn-navegacao btn-block">UPAs</button>
+            <button class="btn-navegacao btn-block" 
+                    data-toggle="modal" 
+                    data-target="#modalUpas">
+                UPAs
+            </button>
         </div>
 
         <div class="col-12 col-md-4 mb-2 mb-md-0">
-          <button class="btn-navegacao btn-block">EMERGÊNCIAS</button>
+            <button class="btn-navegacao btn-block" 
+                    data-toggle="modal" 
+                    data-target="#modalEmergencias">
+                EMERGÊNCIAS
+            </button>
         </div>
 
         <div class="col-12 col-md-4">
-          <button class="btn-navegacao btn-block">ESPECIALIDADES</button>
+            <button class="btn-navegacao btn-block" 
+                    data-toggle="modal" 
+                    data-target="#modalEspecialidades">
+                ESPECIALIDADES
+            </button>
         </div>
 
-      </div>
     </div>
+
+<div class="modal fade modal-lista"  id="modalUpas" tabindex="-1" role="dialog" aria-labelledby="labelModalUpas" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModalUpas">UPAs (Unidades de Pronto Atendimento)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>UPAs 24h (Gerenciadas pelo Estado/OS):</strong></p>
+                <div class="list-group">
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Caxangá (Prof. Dr. Fernando Figueira)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Torrões (Prof. Dr. Etevaldo de Luna)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Ibura (Maria Esther Souto Carvalho)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Imbiribeira (Maria de Lourdes M. de Souza)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Nova Descoberta (Abdias de Barros Correia)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Boa Viagem (Jurema Paes Barreto)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPA Olinda (Atenção: fica em Olinda)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+
+                </div>
+
+                <p class="mt-3"><strong>UPAEs (Unidades de Pronto Atendimento de Especialidades):</strong></p>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPAE Arruda</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPAE Ibura</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">UPAE Especialidades Mustardinha</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-lista" id="modalEmergencias" tabindex="-1" role="dialog" aria-labelledby="labelModalEmergencias" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModalEmergencias">Emergências (Principais Hospitais Públicos)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="list-group mb-3">
+                     <div class="list-group-item list-group-item-danger text-center">
+                         <h5 class="mb-1">Emergência Grave?</h5>
+                         <p class="mb-1"><small>Em caso de risco de vida, chame a ambulância.</small></p>
+                         <a href="tel:192" class="btn btn-danger btn-lg mt-1">LIGAR PARA O SAMU (192)</a>
+                     </div>
+                </div>
+
+                <p><strong>Emergências de Alta Complexidade (Estado):</strong></p>
+                <div class="list-group">
+                
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital da Restauração (HR) - Derby (Grande Trauma)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital Getúlio Vargas (HGV) - Cordeiro</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital Agamenon Magalhães (HAM) - Casa Amarela</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital Barão de Lucena (HBL) - Iputinga</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital Oswaldo Cruz (HUOC) - Santo Amaro</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">PROCAPE - Pronto Socorro Cardiológico de Pernambuco</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                
+                </div>
+                
+                <p class="mt-3"><strong>Emergências (Município/Federal/Filantrópico-SUS):</strong></p>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital da Mulher do Recife (HMR) - Curado (Ginecológica/Obstétrica)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital Pediátrico Helena Moura - Tamarineira (Pediátrica)</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Hospital das Clínicas (HC/UFPE) - Cidade Universitária</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <h6 class="mb-1">IMIP - Instituto de Medicina Integral Prof. Fernando Figueira</h6>
+                        <small>
+                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-lista" id="modalEspecialidades" tabindex="-1" role="dialog" aria-labelledby="labelModalEspecialidades" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalEspecialidades">Especialidades (Policlínicas e Centros)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Policlínicas Municipais (para consultas agendadas):</strong></p>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Gouveia de Barros - Pina</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Lessa de Andrade - Madalena</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Arnaldo Marques - Ibura</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Clementino Fraga - Vasco da Gama</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Albert Sabin - Tamarineira</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Waldemar de Oliveira - Santo Amaro</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Policlínica Salomão Kelner - Água Fria</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3"><strong>Centros de Atenção Psicossocial (CAPS):</strong></p>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">CAPS Espaço Azul (Infanto-Juvenil)</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">CAPS Casa Forte</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">CAPS Gouveia de Barros</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">CAPS Adauto Botelho</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">CAPS Cabo de Santo Agostinho (e outros regionais)</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                    </div>
+
+                    <p class="mt-3"><strong>Outros Centros de Especialidade:</strong></p>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Centro de Saúde Bidu Krause</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Centro de Especialidades Odontológicas (CEO)</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Centro de Testagem e Aconselhamento (CTA)</h6>
+                            <small>
+                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    <p><strong>Atenção Básica (Porta de entrada):</strong><br>
+                        Existem mais de 150 Unidades de Saúde da Família (USF) e Unidades Básicas Tradicionais (UBT) espalhadas pelos bairros. Elas não são para emergência, mas são a porta de entrada para agendar especialidades.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
   </div>
 
   <footer class="rodape">
@@ -142,6 +476,157 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // --- Seus Dados (A Lista de Sintomas Válidos) ---
+    const SINTOMAS_VALIDOS = [
+        
+        // --- Sintomas Gerais ---
+        { id: 1, nome: "Febre alta (acima de 38°C)" },
+        { id: 2, nome: "Febre baixa (até 38°C)" },
+        { id: 3, nome: "Cansaço extremo ou Fadiga" },
+        { id: 4, nome: "Calafrios" },
+        { id: 5, nome: "Suor excessivo" },
+
+        // --- Dores (Geral) ---
+        { id: 10, nome: "Dor de cabeça" },
+        { id: 12, nome: "Dor de barriga" }, 
+        { id: 13, nome: "Dor nas costas" },
+        { id: 14, nome: "Dor muscular" }, 
+        { id: 15, nome: "Dor nas articulações" },
+
+        // --- Trauma / Lesão ---
+        { id: 20, nome: "Dor intensa após queda ou pancada" },
+        { id: 22, nome: "Não consegue mover o membro (Suspeita de Fratura)" },
+        { id: 23, nome: "Corte" }, 
+        { id: 26, nome: "Queimadura" }, 
+
+        // --- Respiratório e Garganta ---
+        { id: 32, nome: "Tosse seca" },
+        { id: 33, nome: "Tosse com catarro" }, 
+        { id: 34, nome: "Chiado no peito" }, 
+        { id: 35, nome: "Dor de garganta" },
+
+        // --- Digestivo / Gastro ---
+        { id: 40, nome: "Enjoo" }, 
+        { id: 41, nome: "Vômito" },
+        { id: 42, nome: "Diarreia" },
+        { id: 43, nome: "Prisão de ventre" }, 
+        { id: 44, nome: "Azia ou Queimação" },
+        { id: 45, nome: "Perda de apetite" },
+        { id: 46, nome: "Gases" }, 
+
+
+        // --- Neurológico / Cabeça  ---
+        { id: 50, nome: "Tontura" }, 
+
+        // --- Sintomas Comuns / "Sociais" ---
+        { id: 60, nome: "Coriza" }, 
+        { id: 61, nome: "Mal-estar" }, 
+        { id: 62, nome: "Crise de ansiedade" }, 
+        { id: 63, nome: "Olho vermelho ou irritado" },
+        { id: 64, nome: "Coceira na pele" },
+        { id: 65, nome: "Espirros" }, 
+
+        // --- Outros ---
+        { id: 70, nome: "Sangramento na urina" },
+        { id: 71, nome: "Sangramento nas fezes" },
+        { id: 72, nome: "Dor ao urinar" }, 
+        { id: 73, nome: "Coração acelerado" } 
+    ];
+
+    // --- Variáveis de Estado ---
+    let sintomasSelecionados = [];
+    const MAX_SINTOMAS = 5;
+
+    // --- Elementos do HTML ---
+    const sintomaInput = document.getElementById('sintomaInput');
+    const resultBox = document.getElementById('autocompleteResultBox');
+    const selectedBox = document.getElementById('selectedSintomasBox');
+    const formButton = document.getElementById('enviarFormulario');
+
+    // --- Função para mostrar os sintomas selecionados ---
+    function renderSintomas() {
+        selectedBox.innerHTML = '';
+        sintomasSelecionados.forEach(sintoma => {
+            const pill = document.createElement('span');
+            pill.classList.add('sintoma-pill');
+            pill.textContent = sintoma.nome;
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.addEventListener('click', () => {
+                sintomasSelecionados = sintomasSelecionados.filter(s => s.id !== sintoma.id);
+                renderSintomas();
+            });
+            pill.appendChild(removeBtn);
+            selectedBox.appendChild(pill);
+        });
+        
+        if (sintomasSelecionados.length >= MAX_SINTOMAS) {
+            sintomaInput.disabled = true;
+            sintomaInput.placeholder = 'Você já selecionou 5 sintomas.';
+        } else {
+            sintomaInput.disabled = false;
+            sintomaInput.placeholder = "Digite seu sintoma...";
+        }
+    }
+
+    // --- Evento de AUTOCPMPLETE (quando o usuário digita) ---
+    sintomaInput.addEventListener('input', () => {
+        const inputText = sintomaInput.value.toLowerCase();
+        resultBox.innerHTML = '';
+
+        if (inputText.length === 0) {
+            return;
+        }
+
+        const sugestoes = SINTOMAS_VALIDOS.filter(sintoma => {
+            const sintomaJaSelecionado = sintomasSelecionados.some(s => s.id === sintoma.id);
+            const textoCorresponde = sintoma.nome.toLowerCase().includes(inputText);
+            return !sintomaJaSelecionado && textoCorresponde;
+        });
+
+        // Mostra as sugestões
+        sugestoes.slice(0, 7).forEach(sugestao => { 
+            const item = document.createElement('a');
+            item.href = "#";
+            item.classList.add('list-group-item', 'list-group-item-action');
+            item.textContent = sugestao.nome;
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                sintomasSelecionados.push(sugestao);
+                sintomaInput.value = '';
+                resultBox.innerHTML = '';
+                renderSintomas();
+            });
+            resultBox.appendChild(item);
+        });
+    });
+
+    
+    sintomaInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); 
+            formButton.click();
+        }
+    });
+    
+    // --- Evento de ENVIO (Submit) ---
+    formButton.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        if (sintomasSelecionados.length === 0) {
+            alert("Por favor, selecione pelo menos um sintoma.");
+            return;
+        }
+        
+        const listaDeIDs = sintomasSelecionados.map(s => s.id);
+        console.log("Enviando IDs para o Backend:", listaDeIDs);
+        alert("Enviando os sintomas! (Veja o console)");
+        
+    });
+
+    </script>
 
 </body>
 
