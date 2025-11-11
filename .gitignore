@@ -53,5 +53,6 @@ __pycache__/
 # Ignorar dados gerados por Spark
 spark/src/data/parquet/
 *.parquet
+*.csv
 *.crc
 _SUCCESS
