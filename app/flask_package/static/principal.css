@@ -14,7 +14,7 @@
 /* Configurações */
 body {
     font-family: 'League Spartan', sans-serif;
-    background-image: url(../static/img/fundo1.png), url(../static/img/fundo2.png), url(../static/img/fundo3.png);
+    background-image: url(../img/fundo1.png), url(../img/fundo2.png), url(../img/fundo3.png);
     background-size: 100% 33.4%, 100% 33.4%, 100% 33.4%;
     background-repeat: no-repeat;
     background-position: center top, center, center bottom;
@@ -125,13 +125,12 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 50px 25px;
     border: 1px solid #000000;
     border-radius: 30px;
     background-color: var(--cor-padrao);
     max-width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0px auto 300px auto;
     box-shadow: 0 5px 15px #1a1a9e;
 }
 
@@ -272,6 +271,96 @@ text-align: center;
 margin-bottom: 0;
 }
 
+/* Estilos do Autocomplete (Novo) */
+
+/* Para o autocomplete funcionar */
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.sintoma-pill {
+    display: inline-flex;
+    align-items: center;
+    background-color: #007bff; /* Cor primária do Bootstrap */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px; /* Deixa bem redondo (pílula) */
+    margin: 5px 5px 5px 0;
+    font-size: 0.9em;
+}
+
+.sintoma-pill .remove-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 8px;
+    padding: 0;
+    line-height: 1;
+}
+
+/*---------------------------ESTILIZAÇÃO DOS MODALS-----------------------*/
+
+/* Alvo: A classe .modal-title dentro do seu .modal-lista */
+.modal-lista .modal-header .modal-title {
+    font-size: 24px; 
+    font-weight: 600; 
+}
+
+.modal-lista .modal-body p {
+    font-size: 20px;
+    margin-left: 5px; 
+}
+
+/* --- 2. Mudar Cor do Botão "Fechar" (no Rodapé) --- */
+.modal-lista .modal-footer .btn-secondary {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
+
+/* Hover (quando passa o mouse) */
+.modal-lista .modal-footer .btn-secondary:hover {
+    background-color: #c82333; 
+    border-color: #bd2130;
+}
+
+/* --- 3. Mudar Cor do Botão "Ver no Mapa" --- */
+
+/* Estado Normal (só contorno) */
+.modal-lista .modal-body .btn-outline-primary {
+    color: #004a99; 
+    border-color: #004a99;
+}
+
+/* Hover (quando passa o mouse) */
+.modal-lista .modal-body .btn-outline-primary:hover {
+    background-color: #004a99; 
+    color: white; 
+}
+
+/* --- 4. Mudar Cor do Botão "Ligar" --- */
+
+/* Estado Normal (só contorno) */
+.modal-lista .modal-body .btn-outline-success {
+    color: #1a7431; 
+    border-color: #1a7431;
+}
+
+/* Hover (quando passa o mouse) */
+.modal-lista .modal-body .btn-outline-success:hover {
+    background-color: #1a7431; 
+    color: white; 
+}
+
 @media (max-width: 431px) {
 
 
@@ -308,6 +397,12 @@ margin-bottom: 0;
 
     form {
         max-width: 70%;
+        margin: 20px auto 30px auto;
+    }
+
+    label[for="sintomaInput"] {
+        font-size: 20px;   /* Tamanho da fonte do título */
+        margin-bottom: 10px;  /* Um pequeno espaço abaixo dele (antes do input) */
     }
 
     .coluna-2{
@@ -332,7 +427,7 @@ margin-bottom: 0;
 
 @media (min-width: 432px) and (max-width: 541px){
     body{
-        background-image: url(../static/img/fundo1.png);
+        background-image: url(../img/fundo1.png);
         background-size: 100% 25%;
     }
 
@@ -356,6 +451,11 @@ margin-bottom: 0;
     .coluna-1 p{
         font-size: 20px;
     }
+    
+    label[for="sintomaInput"] {
+        font-size: 20px;   /* Tamanho da fonte do título */
+        margin-bottom: 10px;  /* Um pequeno espaço abaixo dele (antes do input) */
+    }
 
     .coluna-2{
         margin-right: 20px;
@@ -367,7 +467,7 @@ margin-bottom: 0;
 @media (min-width: 542px) and (max-width: 1025px){
 
     body{
-        background-image: url(../static/img/fundo1.png),url(../static/img/fundo2.png);
+        background-image: url(../img/fundo1.png),url(../img/fundo2.png);
         background-size: 100% 30%;
     }
 
@@ -386,7 +486,11 @@ margin-bottom: 0;
     .coluna-1 h2{
         margin: 20px 0 0 0;
     }
-
+    
+    label[for="sintomaInput"] {
+        font-size: 20px;   /* Tamanho da fonte do título */
+        margin-bottom: 10px;  /* Um pequeno espaço abaixo dele (antes do input) */
+    }
     .coluna-2{
         flex-basis: 100%;
         margin-right: 30px;
