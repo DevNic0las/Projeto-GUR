@@ -5,12 +5,13 @@ class DateClinicoPipeline(BasePipeline):
         super().__init__("DateClinicoPipeline")
     
     def execute_pre_processing(self):
-         return self.extract_data("../data/csv/dados_clinicos.csv")
+         df_pacientes =  self.extract_data("../data/csv/pacientes_dataset_detalhado.csv")
+         df_exploded = df_pacientes.withColumn("especialidades", explode(col("especialidades_array")))
+         df_pacientes_agg  = df_exploded.groupBy("especialidades")
+       
+       
             
 if __name__ == "__main__":
     obj = DateClinicoPipeline()
-    result= obj.execute_pre_processing()
-    if result:
-        result.show(20,truncate=False)
-    else:
-        print("error")       
+    obj.execute_pre_processing()
+    

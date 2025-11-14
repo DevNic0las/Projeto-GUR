@@ -6,7 +6,14 @@ class BasePipeline:
         self.name_analysis = "MySparkApp"
 
     def extract_data(self, path: str)->DataFrame:
-        return self.spark.read.option("header", "true").option("sep", ",").csv(path)
+        return self.spark.read \
+    .option("header", "true") \
+    .option("sep", ",") \
+    .option("quote", '"') \
+    .option("escape", '"') \
+    .option("inferSchema", "true")\
+    .csv(path)
+
 
     def save_result(self, df: DataFrame ,path:str):
         return df.write.mode("overwrite").option("header", "true").csv(path)
