@@ -1,52 +1,103 @@
-import xgboost as xgb
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import LabelEncoder
 import pandas as pd
+from sklearn.preprocessing import MultiLabelBinarizer, LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+from xgboost import XGBClassifier
 
+# =========================
+# 1) Carrega o dataset
+# =========================
+df = pd.read_csv("../data/csv/pacientes_com_hospital.csv")
+df["sintomas"] = df["sintomas"].apply(eval)
 
+# =========================
+# 2) Normalização de sintomas
+# =========================
 
-if __name__ == "__main__":
-    # 1) TREINAR XGBOOST APENAS COM SINTOMAS
-    df = pd.read_csv("../data/csv/pacientes_com_hospital.csv")
+sintomas_normalizados = {
+    "dor no peito": "Dor no peito",
+    "coração acelerado": "Coração acelerado",
+    "peito doendo": "Dor no peito",
+    "taquicardia": "Coração acelerado",
+    "febre": "Febre alta (acima de 38°C)",
+    "febre alta": "Febre alta (acima de 38°C)",
+    "febre baixa": "Febre baixa (até 38°C)",
+    "tosse": "Tosse seca",
+    "tosse seca": "Tosse seca",
+    "tosse com catarro": "Tosse com catarro"
+}
 
-    # Usar APENAS sintomas
-    X = df[['sintomas']].copy()
-    y = df['hospital_recomendado']
+def normalizar_sintoma(s):
+    s = s.lower().strip()
+    return sintomas_normalizados.get(s, None)
 
-    # Converter
-    le_sintomas = LabelEncoder()
-    le_hospital = LabelEncoder()
+# =========================
+# 3) Vetorização multi-hot
+# =========================
+mlb = MultiLabelBinarizer()
+X = mlb.fit_transform(df["sintomas"])
 
-    X_encoded = le_sintomas.fit_transform(X['sintomas'].astype(str))
-    y_encoded = le_hospital.fit_transform(y)
+# =========================
+# 4) Codificação do y
+# =========================
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(df["hospital_recomendado"])
 
-    # XGBoost com UMA feature
-    model_xgb = xgb.XGBClassifier(
-        n_estimators=100,
-        max_depth=3,
-        learning_rate=0.1,
-        random_state=42
-    )
+# =========================
+# 5) Train/Test Split
+# =========================
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_encoded, test_size=0.25, random_state=42
+)
 
-    # Treinar - reshape para 2D mesmo com uma feature
-    model_xgb.fit(X_encoded.reshape(-1, 1), y_encoded)
+# =========================
+# 6) Modelo XGBoost
+# =========================
+model = XGBClassifier(
+    n_estimators=300,
+    max_depth=7,
+    learning_rate=0.08,
+    subsample=0.9,
+    colsample_bytree=0.9,
+    objective="multi:softmax",
+    eval_metric="mlogloss"
+)
 
-    # 2) FUNÇÃO PREDITIVA
-    def recomendar_hospital_xgb(sintomas):
-        sintomas_formatados = f"['{sintomas}']"
-        
-        try:
-            sintomas_encoded = le_sintomas.transform([sintomas_formatados])
-        except ValueError:
-            sintomas_encoded = [0]  # Valor padrão
-        
-        predicao = model_xgb.predict([sintomas_encoded])
-        hospital = le_hospital.inverse_transform(predicao)
-        
-        return hospital[0]
+model.fit(X_train, y_train)
 
-    # 3) TESTAR
-    print(recomendar_hospital_xgb("diarreia"))
-    print(recomendar_hospital_xgb("dor no braço após queda"))
-    print(recomendar_hospital_xgb("Dor de cabeça"))
+# =========================
+# 7) Avaliação (somente terminal)
+# =========================
+y_pred = model.predict(X_test)
+
+print("\n📌 ACCURACY:", round(accuracy_score(y_test, y_pred), 3))
+
+print("\n📌 RELATÓRIO DE CLASSIFICAÇÃO:")
+print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
+
+# =========================
+# 8) Função final de recomendação
+# =========================
+def recomendar_hospital(sintomas_usuario):
+    # normaliza sintomas
+    sintomas_norm = [normalizar_sintoma(s) for s in sintomas_usuario]
+    sintomas_norm = [s for s in sintomas_norm if s is not None]
+
+    if not sintomas_norm:
+        return "Sintomas desconhecidos — não foi possível classificar."
+
+    X_user = mlb.transform([sintomas_norm])
+    pred_num = model.predict(X_user)[0]
+    hospital_pred = label_encoder.inverse_transform([pred_num])[0]
+
+    # print explicação simples
+    print("\n🔍 Sintomas normalizados usados no modelo:", sintomas_norm)
+    print("🔍 Vetor multi-hot do paciente:", X_user.tolist())
+
+    return hospital_pred
+
+# =========================
+# 9) Exemplo
+# =========================
+entrada = ["dor no peito", "coração acelerado"]
+print("\nHospital recomendado:", recomendar_hospital(entrada))
