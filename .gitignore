@@ -55,4 +55,5 @@ spark/src/data/parquet/
 *.parquet
 *.csv
 *.crc
+*.pkl
 _SUCCESS

@@ -6,7 +6,7 @@ class DateClinicoPipeline(BasePipeline):
         super().__init__("DateClinicoPipeline")
     
     def execute_pre_processing(self):
-        df_pacientes = self.extract_data("../data/csv/pacientes_com_hospital.csv")
+        df_pacientes = self.extract_data("../data/csv/pacientes_4M.csv", "../data/parquet/")
         
        
         df_pacientes = df_pacientes.withColumn("sintomas_array", 

@@ -5,14 +5,23 @@ class BasePipeline:
         self.spark = create_spark_session(name_analysis)
         self.name_analysis = "MySparkApp"
 
-    def extract_data(self, path: str)->DataFrame:
-        return self.spark.read \
-    .option("header", "true") \
-    .option("sep", ",") \
-    .option("quote", '"') \
-    .option("escape", '"') \
-    .option("inferSchema", "true")\
-    .csv(path)
+    def extract_data(self, path: str, path_parquet: str) -> DataFrame:
+   
+     df_csv = self.spark.read \
+        .option("header", "true") \
+        .option("sep", ",") \
+        .option("quote", '"') \
+        .option("escape", '"') \
+        .option("inferSchema", "true") \
+        .csv(path)
+    
+    
+     df_csv.write.mode("overwrite").parquet(path_parquet)
+    
+   
+     df_parquet = self.spark.read.parquet(path_parquet)
+    
+     return df_parquet  
 
 
     def save_result(self, df: DataFrame ,path:str):

@@ -1,4 +1,5 @@
 from pipelines.pipeline_base import BasePipeline
+from utils.spark_session import create_spark_session
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import *
 class TestePipeline(BasePipeline):
@@ -31,5 +32,7 @@ class TestePipeline(BasePipeline):
     
 if __name__ == "__main__":
   
-    print("Teste pipeline executado")
+    spark = create_spark_session("teste")
+    df = spark.read.parquet("../data/parquet/")
+    df.show(20, truncate=False)
    
