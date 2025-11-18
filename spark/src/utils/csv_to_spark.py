@@ -17,7 +17,7 @@ def csv_to_parquet():
     # sep=",": Assume que o separador é vírgula (padrão de CSVs).
     try:
         df_csv = spark.read.csv(
-            '../data/csv/dataset_alta_acuracia_8M_balanceado.csv',
+            '../data/csv/dataset_sintomas_4M_balanceado_v6.csv',
             header=True, 
             inferSchema=True,
             sep="," # Se o seu arquivo usar ponto e vírgula, mude para sep=";"
@@ -28,7 +28,7 @@ def csv_to_parquet():
         df_csv.printSchema()
 
         # 3. Escrita para Parquet
-        df_csv.write.mode("overwrite").parquet('../data/parquet/dataset_sintomas_4M_definitivo.parquet')
+        df_csv.write.mode("overwrite").parquet('../data/parquet/dataset_sintomas_4M_balanceado_v6_definitivo.parquet')
         
         print(f"\nConversão concluída com sucesso!")
         print(f"Arquivo salvo em: {path_parquet}")

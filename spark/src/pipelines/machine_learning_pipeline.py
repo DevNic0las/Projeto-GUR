@@ -25,9 +25,9 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
 # --- Configuração ---
-DATA_FILE = "../data/parquet/dataset_sintomas_4M_definitivo.parquet" # ⬅️ Ajuste o nome do arquivo, se necessário
-MODEL_OUT = "hospital_xgb_pipeline_otimizado.pkl"
-ENCODER_OUT = "hospital_label_encoder.pkl"
+DATA_FILE = "../data/parquet/dataset_sintomas_4M_balanceado_v6_definitivo.parquet/" # ⬅️ Ajuste o nome do arquivo, se necessário
+MODEL_OUT = "hospital_xgb_pipeline_otimizado_v6_tentativa6.pkl"
+ENCODER_OUT = "hospital_label_encoder_v6_tentativa4.pkl"
 RANDOM_STATE = 42
 
 # ===============================================
@@ -134,7 +134,7 @@ print("⚙️ Pipeline de pré-processamento (ColumnTransformer) criado.")
 
 model = XGBClassifier(
     n_estimators=500,
-    max_depth=11,
+    max_depth=6,
     learning_rate=0.02,
     tree_method='hist',
     objective='multi:softmax', 
@@ -229,5 +229,5 @@ hospital_recomendado = loaded_le.inverse_transform(pred_num)[0]
 confianca = pred_proba.max()
 
 print("\n--- Resultado ---")
-print(f"🏥 Hospital Recomendado: **{hospital_recomendado}**")
-print(f"💯 Confiança: **{confianca:.2%}**")
+print(f"🏥 Hospital Recomendado: *{hospital_recomendado}*")
+print(f"💯 Confiança: *{confianca:.2%}*")

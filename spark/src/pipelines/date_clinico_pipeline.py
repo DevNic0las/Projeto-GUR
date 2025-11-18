@@ -1,7 +1,7 @@
 from pipelines.pipeline_base import BasePipeline
 from pyspark.sql.functions import *
 
-class DateClinicoPipeline(BasePipeline):
+class DataClinicoPipeline(BasePipeline):
     def __init__(self):
         super().__init__("DateClinicoPipeline")
     
