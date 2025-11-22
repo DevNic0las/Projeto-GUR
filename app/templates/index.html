@@ -29,8 +29,8 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a class="nav-link" href="index.html">INÍCIO</a></li>
+            <li class="nav-item"><a class="nav-link" href="#formulario">FORMULÁRIO</a></li>
             <li class="nav-item"><a class="nav-link" href="#servicos">SERVIÇOS</a></li>
-            <li class="nav-item"><a class="nav-link" href="#locais">LOCAIS</a></li>
           </ul>
         </div>
       </div>
@@ -48,29 +48,35 @@
     </div>
   </div>
 
-  <form>
-    <div class="meuFormulario">
-      <div class="form-group autocomplete-wrapper">
-        
-        <label for="sintomaInput">
-          Digite os seus sintomas (até 5):
-        </label>
-        <input type="text" 
-               id="sintomaInput" 
-               class="form-control" 
-               placeholder="Digite 'Dor', 'Febre', 'Tosse'...">
-        
-        <div id="autocompleteResultBox" class="list-group autocomplete-results">
-            </div>
-      </div>
+<form class="formulario">
   
-      <div id="selectedSintomasBox" class="mb-3">
-        </div>
-  
-      <br>
-      <button type="submit" id="enviarFormulario" class="btn-formulario">Enviar</button>
+  <div class="campo">
+    <label class="titulo" for="sintoma">1. Sintoma Principal</label>
+    <input type="text" id="sintoma" placeholder="Comece a digitar o que sente..." autocomplete="off" required>
     </div>
-  </form>
+
+  <div class="campo">
+    <label class="titulo" for="idade">2. Idade</label>
+    <input type="number" id="idade" placeholder="Ex: 30" required>
+  </div>
+
+  <div class="campo">
+    <label class="titulo" for="comorbidade">3. Possui alguma comorbidade?</label>
+    
+    <select id="comorbidade" required>
+      <option value="" disabled selected>Toque para selecionar...</option>
+      <option value="Nenhuma">Nenhuma</option>
+      <option value="Hipertensao">Hipertensão</option>
+      <option value="Diabetes">Diabetes</option>
+      <option value="Cardiopatia">Cardiopatia</option>
+      <option value="Asma">Asma</option>
+      <option value="Outras">Outras</option>
+    </select>
+  </div>
+
+  <button type="submit">ENVIAR DADOS</button>
+
+</form>
   
   <div class="coluna-2">
     <h2 id="servicos">Serviços</h2>
@@ -477,8 +483,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <script>
-    // --- Seus Dados (A Lista de Sintomas Válidos) ---
+<script>
+    
     const SINTOMAS_VALIDOS = [
         
         // --- Sintomas Gerais ---
@@ -516,7 +522,6 @@
         { id: 45, nome: "Perda de apetite" },
         { id: 46, nome: "Gases" }, 
 
-
         // --- Neurológico / Cabeça  ---
         { id: 50, nome: "Tontura" }, 
 
@@ -535,98 +540,100 @@
         { id: 73, nome: "Coração acelerado" } 
     ];
 
-    // --- Variáveis de Estado ---
-    let sintomasSelecionados = [];
-    const MAX_SINTOMAS = 5;
+    const inputSintoma = document.getElementById('sintoma'); 
+    const inputIdade = document.getElementById('idade');
+    const form = document.querySelector('form');
 
-    // --- Elementos do HTML ---
-    const sintomaInput = document.getElementById('sintomaInput');
-    const resultBox = document.getElementById('autocompleteResultBox');
-    const selectedBox = document.getElementById('selectedSintomasBox');
-    const formButton = document.getElementById('enviarFormulario');
+    const wrapper = inputSintoma.parentElement; 
+    wrapper.classList.add('autocomplete-wrapper'); 
+    
+    const resultBox = document.createElement('div');
+    resultBox.classList.add('autocomplete-results');
+    
+    resultBox.style.backgroundColor = 'white';
+    resultBox.style.border = '1px solid #ccc';
+    resultBox.style.borderTop = 'none';
+    resultBox.style.borderRadius = '0 0 15px 15px';
+    resultBox.style.display = 'none';
+    resultBox.style.maxHeight = '200px'; 
+    resultBox.style.overflowY = 'auto';
+    resultBox.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    
+    wrapper.appendChild(resultBox);
 
-    // --- Função para mostrar os sintomas selecionados ---
-    function renderSintomas() {
-        selectedBox.innerHTML = '';
-        sintomasSelecionados.forEach(sintoma => {
-            const pill = document.createElement('span');
-            pill.classList.add('sintoma-pill');
-            pill.textContent = sintoma.nome;
-            const removeBtn = document.createElement('button');
-            removeBtn.classList.add('remove-btn');
-            removeBtn.innerHTML = '&times;';
-            removeBtn.addEventListener('click', () => {
-                sintomasSelecionados = sintomasSelecionados.filter(s => s.id !== sintoma.id);
-                renderSintomas();
+    inputSintoma.addEventListener('input', () => {
+        const textoDigitado = inputSintoma.value.toLowerCase();
+        resultBox.innerHTML = ''; 
+
+        if (textoDigitado.length === 0) {
+            resultBox.style.display = 'none';
+            return;
+        }
+
+        const sugestoes = SINTOMAS_VALIDOS.filter(sintoma => 
+            sintoma.nome.toLowerCase().includes(textoDigitado)
+        );
+
+        if (sugestoes.length > 0) {
+            resultBox.style.display = 'block';
+            
+            sugestoes.forEach(sugestao => { 
+                const item = document.createElement('div');
+                item.textContent = sugestao.nome;
+                item.style.padding = '12px';
+                item.style.cursor = 'pointer';
+                item.style.borderBottom = '1px solid #eee';
+                item.style.color = '#333';
+                item.style.fontSize = '18px';
+                
+                item.onmouseover = () => item.style.backgroundColor = '#f0f0f0';
+                item.onmouseout = () => item.style.backgroundColor = 'white';
+
+                item.addEventListener('click', () => {
+                    inputSintoma.value = sugestao.nome;
+                    resultBox.style.display = 'none'; 
+                    resultBox.innerHTML = '';
+                });
+
+                resultBox.appendChild(item);
             });
-            pill.appendChild(removeBtn);
-            selectedBox.appendChild(pill);
-        });
-        
-        if (sintomasSelecionados.length >= MAX_SINTOMAS) {
-            sintomaInput.disabled = true;
-            sintomaInput.placeholder = 'Você já selecionou 5 sintomas.';
         } else {
-            sintomaInput.disabled = false;
-            sintomaInput.placeholder = "Digite seu sintoma...";
-        }
-    }
-
-    // --- Evento de AUTOCPMPLETE (quando o usuário digita) ---
-    sintomaInput.addEventListener('input', () => {
-        const inputText = sintomaInput.value.toLowerCase();
-        resultBox.innerHTML = '';
-
-        if (inputText.length === 0) {
-            return;
-        }
-
-        const sugestoes = SINTOMAS_VALIDOS.filter(sintoma => {
-            const sintomaJaSelecionado = sintomasSelecionados.some(s => s.id === sintoma.id);
-            const textoCorresponde = sintoma.nome.toLowerCase().includes(inputText);
-            return !sintomaJaSelecionado && textoCorresponde;
-        });
-
-        // Mostra as sugestões
-        sugestoes.slice(0, 7).forEach(sugestao => { 
-            const item = document.createElement('a');
-            item.href = "#";
-            item.classList.add('list-group-item', 'list-group-item-action');
-            item.textContent = sugestao.nome;
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                sintomasSelecionados.push(sugestao);
-                sintomaInput.value = '';
-                resultBox.innerHTML = '';
-                renderSintomas();
-            });
-            resultBox.appendChild(item);
-        });
-    });
-
-    
-    sintomaInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault(); 
-            formButton.click();
+            resultBox.style.display = 'none';
         }
     });
-    
-    // --- Evento de ENVIO (Submit) ---
-    formButton.addEventListener('click', (e) => {
+
+    document.addEventListener('click', (e) => {
+        if (!inputSintoma.contains(e.target) && !resultBox.contains(e.target)) {
+            resultBox.style.display = 'none';
+        }
+    });
+
+  
+    form.addEventListener('submit', (e) => {
         e.preventDefault(); 
-        if (sintomasSelecionados.length === 0) {
-            alert("Por favor, selecione pelo menos um sintoma.");
+
+        const sintomaValor = inputSintoma.value;
+        const idadeValor = inputIdade.value;
+        
+        const comorbidadeRadio = document.querySelector('input[name="comorbidade"]:checked');
+        const comorbidadeValor = comorbidadeRadio ? comorbidadeRadio.value : null;
+
+        if (!sintomaValor || !idadeValor || !comorbidadeValor) {
+            alert("Por favor, preencha todos os campos e marque Sim ou Não na comorbidade.");
             return;
         }
-        
-        const listaDeIDs = sintomasSelecionados.map(s => s.id);
-        console.log("Enviando IDs para o Backend:", listaDeIDs);
-        alert("Enviando os sintomas! (Veja o console)");
+
+        const dadosFinais = {
+            sintoma: sintomaValor,
+            idade: parseInt(idadeValor),
+            comorbidade: comorbidadeValor 
+        };
+
+        console.log("Enviando:", dadosFinais);
+        alert("Dados capturados com sucesso! Verifique o console (F12).");
         
     });
-
-    </script>
+</script>
 
 </body>
 
