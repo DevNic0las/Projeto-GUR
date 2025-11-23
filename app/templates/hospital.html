@@ -18,7 +18,7 @@
         <div class="logo">
           <img src="img/logo.jpeg" alt="GUR">
         </div>
-
+         
         <!-- Botão do Menu Hambúrguer -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
           aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,13 +41,13 @@
   <div class="container-fluid">
     <div class="row">
     <div class="coluna-1">
-      <h2>nome_hospital</h2>
-      <p>cuidado com os médicos formados que saem daqui</p>
+      <h2>{{hospital_list['name']}}</h2>
+      <p>{{hospital_list['description']}}</p>
       <br>
     </div>
     <div class="coluna-2">
       <img src="img/hospitais/hospital-metropolitano-oeste-pelopidas-silveira.jpg" alt="Hospital Metropolitano Oeste Pelopidas Silveira">
-      <a href="#empresaModal" data-toggle="modal" class="btn">Abrir Mapa &#8594;</a>
+      <a href="{{ hospital_list['location'] }}"  class="btn">Abrir Mapa &#8594;</a>
     </div>
   </div>
   </div>

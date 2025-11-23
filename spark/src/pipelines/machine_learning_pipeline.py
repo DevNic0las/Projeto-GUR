@@ -157,9 +157,9 @@ def realizar_predicao_triagem(modelo, nova_amostra_dict, cols_features):
 nova_amostra = {
     "Sintoma": "Dor de cabeça",
     "Comorbidades": "nenhuma",
-    "Idade": 25,
+    "Idade": 34,
     "Complexidade": "moderada",        
-    "Gravidade": "leve",
+    "Gravidade": "emergencia",
     "Horario": "noturno",
     "Zona_Residencia": "Centro", # Corrigi para "Zona Norte" (minuscula no original)
     "Lotacao_No_Momento": 0.4      

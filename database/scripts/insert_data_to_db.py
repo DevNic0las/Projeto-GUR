@@ -1,83 +1,68 @@
 from database.init_database import initdatabase
 def insert_data_hospitals(hospitals):
-    
+    """Insere uma lista de hospitais no banco de dados."""
     hospitals_col = initdatabase()
     hospitals_col.insert_many(hospitals)
 
 def insert_data_deases(diseases):
+    """Insere uma lista de doenças no banco de dados."""
     diseases_col = initdatabase()
     diseases_col.insert_many(diseases)
     
 if __name__ == "__main__":
     
-     """ 
+    # Lista de hospitais, UPAs e Centros com suas descrições
     dic = [
-    {"name": "Hospital da Restauração (HR) - Derby (Grande Trauma)", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    {"name": "Hospital Getúlio Vargas (HGV) - Cordeiro", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    {"name": "Hospital Agamenon Magalhães (HAM) - Casa Amarela", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    {"name": "Hospital Barão de Lucena (HBL) - Iputinga", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    {"name": "Hospital Oswaldo Cruz (HUOC) - Santo Amaro", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    {"name": "PROCAPE - Pronto Socorro Cardiológico de Pernambuco", "type": "Hospital", "diseases":[
-        {diseases_id[]}
-    ]},
-    
-    
-    {"name": "Hospital da Mulher do Recife (HMR) - Curado (Ginecológica/Obstétrica)", "type": "Hospital"},
-    {"name": "Hospital Pediátrico Helena Moura - Tamarineira (Pediátrica)", "type": "Hospital"},
-    {"name": "Hospital das Clínicas (HC/UFPE) - Cidade Universitária", "type": "Hospital"},
-    {"name": "IMIP - Instituto de Medicina Integral Prof. Fernando Figueira", "type": "Hospital"},
+        # --- Emergências de Alta Complexidade (Estado) ---
+        {"name": "Hospital da Restauração (HR) - Derby (Grande Trauma)", "type": "Hospital", "description": "É a maior unidade de emergência pública de Pernambuco e a principal referência estadual para o 'Grande Trauma'. Especializado em atender vítimas de acidentes, violência, queimaduras graves e casos complexos de neurocirurgia e ortopedia.", "location": "https://www.google.com/maps/place/Hospital+da+Restaura%C3%A7%C3%A3o+Gov.+Paulo+Guerra/@-8.0534152,-34.8989839,17z/data=!4m6!3m5!1s0x7ab188e25767461:0x280995d9e770b777!8m2!3d-8.0535108!4d-34.8977286!16s%2Fg%2F121dpqdc?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Hospital Getúlio Vargas (HGV) - Cordeiro", "type": "Hospital", "description": "Um hospital geral de grande porte e alta complexidade. Atende uma vasta gama de emergências de clínica médica e cirúrgica. É também um centro de referência para especialidades como ortopedia, neurocirurgia, urologia e transplante de rim.", "location": "https://www.google.com/maps/place/Hospital+Get%C3%BAlio+Vargas/@-8.0501459,-34.9241683,16z/data=!4m6!3m5!1s0x7ab19168d3d4b2b:0xf652db64eb013eb2!8m2!3d-8.0512613!4d-34.9222478!16s%2Fg%2F1tfvhf06?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Hospital Agamenon Magalhães (HAM) - Casa Amarela", "type": "Hospital", "description": "Hospital de ensino que atua como referência em múltiplas áreas. Possui emergências ativas em clínica médica e otorrinolaringologia. É notavelmente um Centro de Referência de Alta Complexidade em Cardiologia e abriga uma Maternidade de Alto Risco.", "location": "https://www.google.com/maps/place/Hospital+Agamenon+Magalh%C3%A3es/@-8.0302986,-34.9097041,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab196df0556ee3:0xfaa667e690de602b!8m2!3d-8.0303039!4d-34.9071292!16s%2Fg%2F1tdm3yfk?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Hospital Barão de Lucena (HBL) - Iputinga", "type": "Hospital", "description": "É a principal referência da rede estadual no atendimento materno-infantil. Seu foco são as emergências pediátricas e obstétricas (ginecologia e partos), sendo um hospital-escola.", "location": "https://www.google.com/maps/place/Hospital+Bar%C3%A3o+de+Lucena/@-8.0388777,-34.9418087,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab197ae1c6744d:0x39856672e4d5f062!8m2!3d-8.038883!4d-34.9392338!16s%2Fg%2F11ght4zdgn?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Hospital Oswaldo Cruz (HUOC) - Santo Amaro", "type": "Hospital", "description": "Parte do complexo hospitalar da UPE, é o principal centro de referência do estado para Doenças Infecciosas e Parasitárias (HIV/AIDS, dengue grave, raiva). Também é referência em oncologia e transplante de fígado.", "location": "https://www.google.com/maps/place/Hospital+Oswaldo+Cruz/@-8.0476437,-34.8902601,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab18f272181369:0x205965a491ccc6b5!8m2!3d-8.047649!4d-34.8876852!16s%2Fg%2F1222nv60?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "PROCAPE - Pronto Socorro Cardiológico de Pernambuco", "type": "Hospital", "description": "Unidade de emergência de alta complexidade totalmente dedicada a problemas cardíacos. É a referência máxima em Pernambuco em cardiologia clínica, cirurgia cardíaca e transplante de coração.", "location": "https://www.google.com/maps/place/PROCAPE/@-8.0490561,-34.8898191,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab18edaa04d667:0x63571c64fc754d0c!8m2!3d-8.0490614!4d-34.8872442!16s%2Fg%2F1yfj923__?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        
+        # --- Emergências (Município/Federal/Filantrópico-SUS) ---
+        {"name": "Hospital da Mulher do Recife (HMR) - Curado (Ginecológica/Obstétrica)", "type": "Hospital", "description": "Emergência de referência do município para Ginecologia e Obstetrícia (24h). Focada em partos de alto risco, com Centro de Parto Normal humanizado e atendimento integral à saúde da mulher.", "location":"https://www.google.com/maps/place/Hospital+da+Mulher+do+Recife+(HMR)/@-8.0704643,-34.9423828,17z/data=!4m6!3m5!1s0x7ab1ead4862deab:0xd444e3392d103548!8m2!3d-8.0704769!4d-34.9411233!16s%2Fg%2F11c6r8nb78?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Hospital Pediátrico Helena Moura - Tamarineira (Pediátrica)", "type": "Hospital", "description": "Unidade de emergência 24h da Prefeitura do Recife, focada exclusivamente no atendimento de urgências e emergências pediátricas (crianças e adolescentes)."},
+        {"name": "Hospital das Clínicas (HC/UFPE) - Cidade Universitária", "type": "Hospital", "description": "Hospital Universitário Federal (Ebserh) e centro de ensino, pesquisa e atendimento de alta complexidade (100% SUS). Atende uma gama enorme de especialidades como retaguarda para casos complexos.", "location": "https://www.google.com/maps/place/Hospital+de+Pediatria+Helena+Moura/@-8.03115,-34.904367,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab1853f3f324e5:0x97c3870816fc8abc!8m2!3d-8.0311553!4d-34.9017921!16s%2Fg%2F1tgm31qj?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "IMIP - Instituto de Medicina Integral Prof. Fernando Figueira", "type": "Hospital", "description": "Instituição filantrópica (100% SUS) de referência nacional em saúde materno-infantil, que também atua no atendimento integral da família (adulto, mulher e criança) em altíssima complexidade (transplantes, oncologia).", "location": "https://www.google.com/maps/place/Hospital+das+Cl%C3%ADnicas+UFPE/@-8.047398,-34.9487399,17z/data=!3m1!5s0x7ab1915b39bcba1:0xbd481cb866fdccfe!4m6!3m5!1s0x7ab19648ca22b57:0xf02ec862dfd94c10!8m2!3d-8.0474352!4d-34.9463152!16s%2Fg%2F121pqdnh?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
 
-   
-    {"name": "UPA Caxangá (Prof. Dr. Fernando Figueira)", "type": "UPA"},
-    {"name": "UPA Torrões (Prof. Dr. Etevaldo de Luna)", "type": "UPA"},
-    {"name": "UPA Ibura (Maria Esther Souto Carvalho)", "type": "UPA"},
-    {"name": "UPA Imbiribeira (Maria de Lourdes M. de Souza)", "type": "UPA"},
-    {"name": "UPA Nova Descoberta (Abdias de Barros Correia)", "type": "UPA"},
-    {"name": "UPA Boa Viagem (Jurema Paes Barreto)", "type": "UPA"},
-    {"name": "UPA Olinda", "type": "UPA"},
+        # --- UPAs 24h (Urgência e Emergência de Média Complexidade) ---
+        {"name": "UPA Caxangá (Prof. Dr. Fernando Figueira)", "type": "UPA", "description": "Unidade de Pronto Atendimento 24h para urgências e emergências de média complexidade (clínica médica e pediatria), como febre alta, fraturas, cortes e crises de pressão.", "location": "https://www.google.com/maps/place/UPA+-+Caxang%C3%A1/@-8.0291396,-34.9610498,16z/data=!4m6!3m5!1s0x7ab1a2cc107a1e7:0x18aa7cb7640d2027!8m2!3d-8.0298067!4d-34.9576641!16s%2Fg%2F1yhbjs_5v?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPA Torrões (Prof. Dr. Etevaldo de Luna)", "type": "UPA", "description": "Unidade de Pronto Atendimento 24h para urgências e emergências de média complexidade (clínica médica e pediatria), como febre alta, fraturas, cortes e crises de pressão.", "location": "https://www.google.com/maps/place/UPA+-+Unidade+de+Pronto+Atendimento+-+Tipo+III+Torr%C3%B5es/@-8.0632624,-34.938344,16z/data=!4m6!3m5!1s0x7ab194f2ad2d97f:0x2817127124162a57!8m2!3d-8.0632358!4d-34.9342027!16s%2Fg%2F11bzr6km5f?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPA Ibura (Maria Esther Souto Carvalho)", "type": "UPA", "description": "Unidade de Pronto Atendimento 24h para urgências e emergências de média complexidade (clínica médica e pediatria), como febre alta, fraturas, cortes e crises de pressão.", "location": "https://www.google.com/maps/place/UPA+Ibura/@-8.1285357,-34.9503798,17z/data=!4m6!3m5!1s0x7ab1e09f5e5de01:0xb918aee82348ba78!8m2!3d-8.1288118!4d-34.9494678!16s%2Fg%2F11b5wpnknj?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPA Imbiribeira (Maria de Lourdes M. de Souza)", "type": "UPA", "description": "Unidade de Pronto Atendimento 24h para urgências e emergências de média complexidade (clínica médica e pediatria), como febre alta, fraturas, cortes e crises de pressão.", "location": "https://www.google.com/maps/place/UPA+Imbiribeira/@-8.1203978,-34.9154741,17z/data=!4m6!3m5!1s0x7ab1e4ef6ba06b9:0xde787739892a127d!8m2!3d-8.1209182!4d-34.913854!16s%2Fg%2F11h7m3j7y3?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPA Nova Descoberta (Abdias de Barros Correia)", "type": "UPA", "description": "Unidade de Pronto Atendimento 24h para urgências e emergências de média complexidade (clínica médica e pediatria), como febre alta, fraturas, cortes e crises de pressão.", "location": "https://www.google.com/maps/place/UPA+Nova+Descoberta+%E2%80%93+Solano+Trindade/@-8.0020307,-34.9209699,17z/data=!4m6!3m5!1s0x7ab19d1bd29a771:0x7b4b41e04cf5e95b!8m2!3d-8.0019138!4d-34.9196181!16s%2Fg%2F11b6hkw9tg?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        
+        
+        # --- UPAEs (Consultas e Exames Agendados) ---
+        {"name": "UPAE Arruda", "type": "UPAE", "description": "Centro de especialidades para consultas agendadas (via regulação) em áreas como Reumatologia, Endocrinologia, Cardiologia, Neurologia. Realiza exames como ecocardiograma, raio-x e endoscopia.", "location": "https://www.google.com/maps/place/UPAe+-+Arruda/@-8.0283782,-34.8928052,17z/data=!4m6!3m5!1s0x7ab184fe350494b:0x84f25d181522867d!8m2!3d-8.0282188!4d-34.891153!16s%2Fg%2F11c0t9060d?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPAE Ibura", "type": "UPAE", "description": "Centro de especialidades focado em consultas agendadas (via regulação) em Cardiologia, Pediatria, Gastroenterologia, Endocrinologia, Neurologia, Ortopedia e outras.", "location": "https://www.google.com/maps/place/UPAE+IBURA/@-8.10966,-34.9380409,17z/data=!4m6!3m5!1s0x7ab1f006b2b828b:0x73ff5decd3f3fa68!8m2!3d-8.1098406!4d-34.9364852!16s%2Fg%2F11xz2plv6j?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "UPAE Especialidades Mustardinha", "type": "UPAE", "description": "Centro ambulatorial para consultas agendadas (via regulação) em especialidades como Cardiologia, Pediatria, Gastroenterologia, Endocrinologia, Ortopedia e Psiquiatria.", "location": "https://www.google.com/maps/place/UPAE+Mustardinha/@-8.0691191,-34.9190828,16z/data=!4m6!3m5!1s0x7ab1907972a4385:0x760f57472224e3c!8m2!3d-8.0691244!4d-34.9168512!16s%2Fg%2F11vkk39m15?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
 
-    
-    {"name": "UPAE Arruda", "type": "UPAE"},
-    {"name": "UPAE Ibura", "type": "UPAE"},
-    {"name": "UPAE Especialidades Mustardinha", "type": "UPAE"},
+        # --- Policlínicas (Consultas Agendadas ou Emergência) ---
+        {"name": "Policlínica Gouveia de Barros - Pina", "type": "Policlínica", "description": "Grande ambulatório municipal para consultas agendadas em diversas especialidades, incluindo Cardiologia, Dermatologia, Ginecologia, Geriatria, Pediatria e Psiquiatria.", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+Gouveia+de+Barros/@-8.080423,-34.9097553,16z/data=!4m6!3m5!1s0x7ab1f0067458577:0xaa3670fbce2e18be!8m2!3d-8.0808107!4d-34.9054101!16s%2Fg%2F11vxjjyq93?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Lessa de Andrade - Madalena", "type": "Policlínica", "description": "Ambulatório municipal de especialidades (atendimento agendado) que também sedia o Ambulatório LGBT (Centro Patrícia Gomes) e o Serviço de Atenção Especializada em DST-AIDS.", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+Lessa+de+Andrade/@-8.0587011,-34.9084138,17z/data=!4m6!3m5!1s0x7ab1920a4ea54b1:0x5e8c893d5d75711f!8m2!3d-8.0586586!4d-34.9070191!16s%2Fg%2F11bysjrmjz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Arnaldo Marques - Ibura", "type": "Policlínica", "description": "ATENÇÃO: Apesar do nome, funciona principalmente como uma emergência 24h de média complexidade (similar a uma UPA), com emergência pediátrica, clínica médica e cirurgia geral.", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+e+Maternidade+Professor+Arnaldo+Marques/@-8.1204115,-34.945308,17z/data=!4m6!3m5!1s0x7ab1e7ab43f1f9b:0xb5f468aa9c5f9658!8m2!3d-8.1204009!4d-34.9441707!16s%2Fg%2F1ptznfrxf?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Clementino Fraga - Vasco da Gama", "type": "Policlínica", "description": "Ambulatório municipal de especialidades que atende com hora marcada (via regulação) em áreas como Clínica Médica, Cardiologia, Dermatologia, Ginecologia e Pediatria.", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+Clementino+Fraga/@-8.0196895,-34.9212192,17z/data=!4m6!3m5!1s0x7ab19b99834e23b:0x94589f0aa8a29eeb!8m2!3d-8.019477!4d-34.919685!16s%2Fg%2F1tknkn79?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Albert Sabin - Tamarineira", "type": "Policlínica", "description": "Ambulatório com uma gama ampla de especialidades (via regulação), incluindo Alergologia, Hebiatria (saúde do adolescente) e Neurologia. Sedia um Centro de Especialidades Odontológicas (CEO).", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+Albert+Sabin/@-8.0340809,-34.9066884,17z/data=!4m6!3m5!1s0x7ab1854e14158d1:0xe123c86f4934bfbb!8m2!3d-8.0339428!4d-34.9052507!16s%2Fg%2F1tx1td9v?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Waldemar de Oliveira - Santo Amaro", "type": "Policlínica", "description": "Ambulatório municipal focado em atendimento agendado (via regulação) em especialidades centrais como Cardiologia, Clínica Médica, Dermatologia, Ginecologia e Geriatria.", "location": "https://www.google.com/maps/place/Policl%C3%ADnica+Waldemar+de+Oliveira/@-8.0520189,-34.8860902,17z/data=!4m6!3m5!1s0x7ab18eb50eefe3f:0xee5bb985e8f6cce!8m2!3d-8.051987!4d-34.8848671!16s%2Fg%2F1tghdbkz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Policlínica Salomão Kelner - Água Fria", "type": "Policlínica", "description": "Ambulatório de especialidades (atendimento agendado) com destaque em Ginecologia/Obstetrícia, Pediatria, Ortopedia, Dermatologia e Psiquiatria.", "location": "https://www.google.com/maps/place/US+105+CS+Salom%C3%A3o+Kelner/@-8.021029,-34.8971508,17z/data=!4m6!3m5!1s0x7ab184880fde0e7:0xa9e177ae9dc1f39e!8m2!3d-8.020944!4d-34.8957024!16s%2Fg%2F11vjxdcgm8?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
 
-   
-    {"name": "Policlínica Gouveia de Barros - Pina", "type": "Policlínica"},
-    {"name": "Policlínica Lessa de Andrade - Madalena", "type": "Policlínica"},
-    {"name": "Policlínica Arnaldo Marques - Ibura", "type": "Policlínica"},
-    {"name": "Policlínica Clementino Fraga - Vasco da Gama", "type": "Policlínica"},
-    {"name": "Policlínica Albert Sabin - Tamarineira", "type": "Policlínica"},
-    {"name": "Policlínica Waldemar de Oliveira - Santo Amaro", "type": "Policlínica"},
-    {"name": "Policlínica Salomão Kelner - Água Fria", "type": "Policlínica"},
+        # --- CAPS (Saúde Mental) ---
+        {"name": "CAPS Espaço Azul (Infanto-Juvenil)", "type": "CAPS", "description": "É um CAPSi, serviço 'porta aberta' especializado no atendimento de saúde mental para crianças e adolescentes com transtornos graves.", "location": "https://www.google.com/maps/place/CAPS+Espa%C3%A7o+Azul/@-8.0243818,-34.912075,17z/data=!4m6!3m5!1s0x7ab19b247fc74c1:0xd86fdd49f6b2f902!8m2!3d-8.0245199!4d-34.9107661!16s%2Fg%2F1tj5qyx6?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "CAPS Casa Forte", "type": "CAPS", "description": "CAPS 'porta aberta' para atendimento de adultos com transtornos mentais graves e persistentes (ex: depressão grave, bipolaridade, esquizofrenia).", "location": "https://www.google.com/maps/place/Centro+de+Aten%C3%A7%C3%A3o+Psicosocial+Casa+Forte+S%2FS/@-8.0294494,-34.9236714,17z/data=!4m6!3m5!1s0x7ab19a0d786accf:0x1617c6bbadef0574!8m2!3d-8.0295025!4d-34.9216222!16s%2Fg%2F1tf75qql?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        
 
- 
-    {"name": "CAPS Espaço Azul (Infanto-Juvenil)", "type": "CAPS"},
-    {"name": "CAPS Casa Forte", "type": "CAPS"},
-    {"name": "CAPS Gouveia de Barros", "type": "CAPS"},
-    {"name": "CAPS Adauto Botelho", "type": "CAPS"},
-    {"name": "CAPS Cabo de Santo Agostinho", "type": "CAPS"},
-
-   
-    {"name": "Centro de Saúde Bidu Krause", "type": "Centro"},
-    {"name": "Centro de Especialidades Odontológicas (CEO)", "type": "Centro"},
-    {"name": "Centro de Testagem e Aconselhamento (CTA)", "type": "Centro"}
+        # --- Outros Centros ---
+        {"name": "Centro de Saúde Bidu Krause", "type": "Centro", "description": "Unidade Básica de Saúde (UBS) ou 'posto de saúde'. Principal porta de entrada do SUS, focada em atenção primária: consultas (clínica, gineco, pediatria), vacinação e acompanhamento.", "location": "https://www.google.com/maps/place/USF+%2B+Bidu+Krause/@-8.0798179,-34.9739443,16z/data=!4m6!3m5!1s0x7ab1d0052fede91:0x64b9b86cd669f63c!8m2!3d-8.0797525!4d-34.9705667!16s%2Fg%2F11vxnznh83?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Centro de Especialidades Odontológicas (CEO)", "type": "Centro", "description": "Unidade de referência para onde o dentista do posto de saúde encaminha casos mais complexos, como tratamento de canal (endodontia), próteses e cirurgias orais.", "location": "https://www.google.com/maps/place/CEO+-+Centro+de+Especialidades+Odontol%C3%B3gicas/@-8.0473032,-34.9512346,16z/data=!4m6!3m5!1s0x7ab19610bb7dee7:0xca666cf99dc1d0e8!8m2!3d-8.047351!4d-34.9476404!16s%2Fg%2F11fy27_2xz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"},
+        {"name": "Centro de Testagem e Aconselhamento (CTA)", "type": "Centro", "description": "Serviço de acesso gratuito, sigiloso e anônimo focado na prevenção e testagem rápida de ISTs (HIV, Sífilis, Hepatites Virais), com aconselhamento.", "location": "https://www.google.com/maps/place/US+168+Cta+Centro+de+Testagem+e+Aconselhamento/@-8.0625131,-34.8919701,17z/data=!4m6!3m5!1s0x7ab18c42861d79f:0x2f85ce274e90c6ec!8m2!3d-8.0623431!4d-34.8901998!16s%2Fg%2F11vm165s6j?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"}
     ] 
-    """
-    # insert_data_hospitals(dic)
+    
 
-dic_diseases = [
-     {}
-    ]
-insert_data_deases(dic_diseases)
-    
-    
+    print("Inserindo dados das unidades de saúde...")
+    insert_data_hospitals(dic)
+    print("Dados inseridos com sucesso.")
+
+   
