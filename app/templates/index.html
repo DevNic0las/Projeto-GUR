@@ -4,12 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Urgência Recife.com.br - GUR.com.br</title>
+  <title>Guia de Urgência Recife - GUR</title>
   
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/principal.css">
-
-  </head>
+</head>
 
 <body>
 
@@ -24,7 +23,6 @@
           aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
 
         <div class="collapse navbar-collapse" id="navbarMenu">
           <ul class="navbar-nav ml-auto">
@@ -41,78 +39,73 @@
     <div class="row">
       <div class="coluna-1">
         <h2>Nosso Objetivo</h2>
-        <p>Em um momento de urgência, a gente sabe que a informação correta faz toda a diferença. Por isso, estamos aqui para te guiar. Nosso objetivo é dar a você o direito de saber onde ir e qual  atendimento é o melhor para sua necessidade. Porque a sua vida e a sua saúde são o que mais importa para nós.</p>
+        <p>Em um momento de urgência, a gente sabe que a informação correta faz toda a diferença. Por isso, estamos aqui para te guiar. Nosso objetivo é dar a você o direito de saber onde ir e qual atendimento é o melhor para sua necessidade. Porque a sua vida e a sua saúde são o que mais importa para nós.</p>
         <br>
-        <a href="#empresaModal" data-toggle="modal" class="btn">Mais Informações ➔  </a>
+        <a href="#" class="btn">Mais Informações ➔ </a>
       </div>
     </div>
   </div>
 
-<form class="formulario">
-  
-  <div class="campo">
-    <label class="titulo" for="sintoma">1. Sintoma Principal</label>
-    <input type="text" id="sintoma" placeholder="Comece a digitar o que sente..." autocomplete="off" required>
+  <form id="formulario" class="formulario">
+    
+    <div class="campo">
+      <label class="titulo" for="sintoma">1. Sintoma Principal</label>
+      <input type="text" id="sintoma" placeholder="Comece a digitar o que sente..." autocomplete="off" required>
     </div>
 
-  <div class="campo">
-    <label class="titulo" for="idade">2. Idade</label>
-    <input type="number" id="idade" placeholder="Ex: 30" required>
-  </div>
+    <div class="campo">
+      <label class="titulo" for="idade">2. Idade</label>
+      <input type="number" id="idade" placeholder="Ex: 30" required>
+    </div>
 
-  <div class="campo">
-    <label class="titulo" for="comorbidade">3. Possui alguma comorbidade?</label>
-    
-    <select id="comorbidade" required>
-      <option value="" disabled selected>Toque para selecionar...</option>
-      <option value="Nenhuma">Nenhuma</option>
-      <option value="Hipertensao">Hipertensão</option>
-      <option value="Diabetes">Diabetes</option>
-      <option value="Cardiopatia">Cardiopatia</option>
-      <option value="Asma">Asma</option>
-      <option value="Outras">Outras</option>
-    </select>
-  </div>
+    <div class="campo">
+      <label class="titulo" for="comorbidade">3. Possui alguma comorbidade?</label>
+      <select id="comorbidade" required>
+        <option value="" disabled selected>Toque para selecionar...</option>
+        <option value="Nenhuma">Nenhuma</option>
+        <option value="Hipertensao">Hipertensão</option>
+        <option value="Diabetes">Diabetes</option>
+        <option value="Cardiopatia">Cardiopatia</option>
+        <option value="Asma">Asma</option>
+        <option value="Outras">Outras</option>
+      </select>
+    </div>
 
-  <button type="submit">ENVIAR DADOS</button>
+    <button type="submit">ENVIAR DADOS</button>
 
-</form>
+  </form>
   
   <div class="coluna-2">
     <h2 id="servicos">Serviços</h2>
-      <p>Nós entendemos que cada problema de saúde é único. Por isso, o nosso serviço foi pensado para você: te guiar de forma rápida e segura para o atendimento mais eficaz. Sugerimos as UPAs e Hospitais com a emergência certa para a sua necessidade, para que você tenha a tranquilidade de saber que está no caminho certo.</p>
+    <p>Nós entendemos que cada problema de saúde é único. Por isso, o nosso serviço foi pensado para você: te guiar de forma rápida e segura para o atendimento mais eficaz. Sugerimos as UPAs e Hospitais com a emergência certa para a sua necessidade, para que você tenha a tranquilidade de saber que está no caminho certo.</p>
     <br>
 
     <div id="locais" class="container my-5">
-    <div class="servicos row">
+      <div class="servicos row">
         
         <div class="col-12 col-md-4 mb-2 mb-md-0">
-            <button class="btn-navegacao btn-block" 
-                    data-toggle="modal" 
-                    data-target="#modalUpas">
-                UPAs
-            </button>
+          <button class="btn-navegacao btn-block" data-toggle="modal" data-target="#modalUpas">
+            UPAs
+          </button>
         </div>
 
         <div class="col-12 col-md-4 mb-2 mb-md-0">
-            <button class="btn-navegacao btn-block" 
-                    data-toggle="modal" 
-                    data-target="#modalEmergencias">
-                EMERGÊNCIAS
-            </button>
+          <button class="btn-navegacao btn-block" data-toggle="modal" data-target="#modalEmergencias">
+            EMERGÊNCIAS
+          </button>
         </div>
 
         <div class="col-12 col-md-4">
-            <button class="btn-navegacao btn-block" 
-                    data-toggle="modal" 
-                    data-target="#modalEspecialidades">
-                ESPECIALIDADES
-            </button>
+          <button class="btn-navegacao btn-block" data-toggle="modal" data-target="#modalEspecialidades">
+            ESPECIALIDADES
+          </button>
         </div>
 
+      </div>
     </div>
+  </div>
 
-<div class="modal fade modal-lista"  id="modalUpas" tabindex="-1" role="dialog" aria-labelledby="labelModalUpas" aria-hidden="true">
+  <div class="modal fade modal-lista"  id="modalUpas" tabindex="-1" role="dialog" aria-labelledby="labelModalUpas" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -124,77 +117,40 @@
             <div class="modal-body">
                 <p><strong>UPAs 24h (Gerenciadas pelo Estado/OS):</strong></p>
                 <div class="list-group">
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">UPA Caxangá (Prof. Dr. Fernando Figueira)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPA+-+Caxang%C3%A1/@-8.0291396,-34.9610498,16z/data=!4m6!3m5!1s0x7ab1a2cc107a1e7:0x18aa7cb7640d2027!8m2!3d-8.0298067!4d-34.9576641!16s%2Fg%2F1yhbjs_5v?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-
                     <div class="list-group-item">
                         <h6 class="mb-1">UPA Torrões (Prof. Dr. Etevaldo de Luna)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPA+-+Unidade+de+Pronto+Atendimento+-+Tipo+III+Torr%C3%B5es/@-8.0632624,-34.938344,16z/data=!4m6!3m5!1s0x7ab194f2ad2d97f:0x2817127124162a57!8m2!3d-8.0632358!4d-34.9342027!16s%2Fg%2F11bzr6km5f?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">UPA Ibura (Maria Esther Souto Carvalho)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPA+Ibura/@-8.1285357,-34.9503798,17z/data=!4m6!3m5!1s0x7ab1e09f5e5de01:0xb918aee82348ba78!8m2!3d-8.1288118!4d-34.9494678!16s%2Fg%2F11b5wpnknj?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">UPA Imbiribeira (Maria de Lourdes M. de Souza)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPA+Imbiribeira/@-8.1203978,-34.9154741,17z/data=!4m6!3m5!1s0x7ab1e4ef6ba06b9:0xde787739892a127d!8m2!3d-8.1209182!4d-34.913854!16s%2Fg%2F11h7m3j7y3?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">UPA Nova Descoberta (Abdias de Barros Correia)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPA+Nova+Descoberta+%E2%80%93+Solano+Trindade/@-8.0020307,-34.9209699,17z/data=!4m6!3m5!1s0x7ab19d1bd29a771:0x7b4b41e04cf5e95b!8m2!3d-8.0019138!4d-34.9196181!16s%2Fg%2F11b6hkw9tg?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
-                    <div class="list-group-item">
-                        <h6 class="mb-1">UPA Boa Viagem (Jurema Paes Barreto)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
-                    </div>
-                    
-                    <div class="list-group-item">
-                        <h6 class="mb-1">UPA Olinda (Atenção: fica em Olinda)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
-                    </div>
-
                 </div>
-
                 <p class="mt-3"><strong>UPAEs (Unidades de Pronto Atendimento de Especialidades):</strong></p>
                 <div class="list-group">
                     <div class="list-group-item">
                         <h6 class="mb-1">UPAE Arruda</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPAe+-+Arruda/@-8.0283782,-34.8928052,17z/data=!4m6!3m5!1s0x7ab184fe350494b:0x84f25d181522867d!8m2!3d-8.0282188!4d-34.891153!16s%2Fg%2F11c0t9060d?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
                     <div class="list-group-item">
                         <h6 class="mb-1">UPAE Ibura</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPAE+IBURA/@-8.10966,-34.9380409,17z/data=!4m6!3m5!1s0x7ab1f006b2b828b:0x73ff5decd3f3fa68!8m2!3d-8.1098406!4d-34.9364852!16s%2Fg%2F11xz2plv6j?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
                     <div class="list-group-item">
                         <h6 class="mb-1">UPAE Especialidades Mustardinha</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/UPAE+Mustardinha/@-8.0691191,-34.9190828,16z/data=!4m6!3m5!1s0x7ab1907972a4385:0x760f57472224e3c!8m2!3d-8.0691244!4d-34.9168512!16s%2Fg%2F11vkk39m15?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
                 </div>
             </div>
@@ -203,9 +159,9 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
-<div class="modal fade modal-lista" id="modalEmergencias" tabindex="-1" role="dialog" aria-labelledby="labelModalEmergencias" aria-hidden="true">
+  <div class="modal fade modal-lista" id="modalEmergencias" tabindex="-1" role="dialog" aria-labelledby="labelModalEmergencias" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,7 +171,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 <div class="list-group mb-3">
                      <div class="list-group-item list-group-item-danger text-center">
                          <h5 class="mb-1">Emergência Grave?</h5>
@@ -223,82 +178,50 @@
                          <a href="tel:192" class="btn btn-danger btn-lg mt-1">LIGAR PARA O SAMU (192)</a>
                      </div>
                 </div>
-
                 <p><strong>Emergências de Alta Complexidade (Estado):</strong></p>
                 <div class="list-group">
-                
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital da Restauração (HR) - Derby (Grande Trauma)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+da+Restaura%C3%A7%C3%A3o+Gov.+Paulo+Guerra/@-8.0534152,-34.8989839,17z/data=!4m6!3m5!1s0x7ab188e25767461:0x280995d9e770b777!8m2!3d-8.0535108!4d-34.8977286!16s%2Fg%2F121dpqdc?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital Getúlio Vargas (HGV) - Cordeiro</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+Get%C3%BAlio+Vargas/@-8.0501459,-34.9241683,16z/data=!4m6!3m5!1s0x7ab19168d3d4b2b:0xf652db64eb013eb2!8m2!3d-8.0512613!4d-34.9222478!16s%2Fg%2F1tfvhf06?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital Agamenon Magalhães (HAM) - Casa Amarela</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+Agamenon+Magalh%C3%A3es/@-8.0302986,-34.9097041,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab196df0556ee3:0xfaa667e690de602b!8m2!3d-8.0303039!4d-34.9071292!16s%2Fg%2F1tdm3yfk?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital Barão de Lucena (HBL) - Iputinga</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+Bar%C3%A3o+de+Lucena/@-8.0388777,-34.9418087,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab197ae1c6744d:0x39856672e4d5f062!8m2!3d-8.038883!4d-34.9392338!16s%2Fg%2F11ght4zdgn?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital Oswaldo Cruz (HUOC) - Santo Amaro</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+Oswaldo+Cruz/@-8.0476437,-34.8902601,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab18f272181369:0x205965a491ccc6b5!8m2!3d-8.047649!4d-34.8876852!16s%2Fg%2F1222nv60?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">PROCAPE - Pronto Socorro Cardiológico de Pernambuco</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/PROCAPE/@-8.0490561,-34.8898191,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab18edaa04d667:0x63571c64fc754d0c!8m2!3d-8.0490614!4d-34.8872442!16s%2Fg%2F1yfj923__?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                
                 </div>
-                
                 <p class="mt-3"><strong>Emergências (Município/Federal/Filantrópico-SUS):</strong></p>
                 <div class="list-group">
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital da Mulher do Recife (HMR) - Curado (Ginecológica/Obstétrica)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+da+Mulher+do+Recife+(HMR)/@-8.0704643,-34.9423828,17z/data=!4m6!3m5!1s0x7ab1ead4862deab:0xd444e3392d103548!8m2!3d-8.0704769!4d-34.9411233!16s%2Fg%2F11c6r8nb78?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital Pediátrico Helena Moura - Tamarineira (Pediátrica)</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+de+Pediatria+Helena+Moura/@-8.03115,-34.904367,17z/data=!3m1!4b1!4m6!3m5!1s0x7ab1853f3f324e5:0x97c3870816fc8abc!8m2!3d-8.0311553!4d-34.9017921!16s%2Fg%2F1tgm31qj?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">Hospital das Clínicas (HC/UFPE) - Cidade Universitária</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/Hospital+das+Cl%C3%ADnicas+UFPE/@-8.047398,-34.9487399,17z/data=!3m1!5s0x7ab1915b39bcba1:0xbd481cb866fdccfe!4m6!3m5!1s0x7ab19648ca22b57:0xf02ec862dfd94c10!8m2!3d-8.0474352!4d-34.9463152!16s%2Fg%2F121pqdnh?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
                     <div class="list-group-item">
                         <h6 class="mb-1">IMIP - Instituto de Medicina Integral Prof. Fernando Figueira</h6>
-                        <small>
-                            <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                        </small>
+                        <small><a href="https://www.google.com/maps/place/IMIP+Instituto+de+Medicina+Integral+Professor+Fernando+Figueira/@-8.0667828,-34.898065,16z/data=!4m6!3m5!1s0x7ab18c8cd1e98ff:0x5c52ca864be68c1!8m2!3d-8.0669066!4d-34.8902756!16s%2Fg%2F11bwn9rl2j?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
                 </div>
             </div>
@@ -307,148 +230,90 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
-<div class="modal fade modal-lista" id="modalEspecialidades" tabindex="-1" role="dialog" aria-labelledby="labelModalEspecialidades" aria-hidden="true">
+  <div class="modal fade modal-lista" id="modalEspecialidades" tabindex="-1" role="dialog" aria-labelledby="labelModalEspecialidades" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="labelModalEspecialidades">Especialidades (Policlínicas e Centros)</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Policlínicas Municipais (para consultas agendadas):</strong></p>
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Gouveia de Barros - Pina</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Lessa de Andrade - Madalena</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Arnaldo Marques - Ibura</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Clementino Fraga - Vasco da Gama</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Albert Sabin - Tamarineira</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Waldemar de Oliveira - Santo Amaro</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Policlínica Salomão Kelner - Água Fria</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModalEspecialidades">Especialidades (Policlínicas e Centros)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Policlínicas Municipais (para consultas agendadas):</strong></p>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Gouveia de Barros - Pina</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+Gouveia+de+Barros/@-8.080423,-34.9097553,16z/data=!4m6!3m5!1s0x7ab1f0067458577:0xaa3670fbce2e18be!8m2!3d-8.0808107!4d-34.9054101!16s%2Fg%2F11vxjjyq93?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
-                    <p class="mt-3"><strong>Centros de Atenção Psicossocial (CAPS):</strong></p>
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <h6 class="mb-1">CAPS Espaço Azul (Infanto-Juvenil)</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">CAPS Casa Forte</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">CAPS Gouveia de Barros</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">CAPS Adauto Botelho</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">CAPS Cabo de Santo Agostinho (e outros regionais)</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Lessa de Andrade - Madalena</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+Lessa+de+Andrade/@-8.0587011,-34.9084138,17z/data=!4m6!3m5!1s0x7ab1920a4ea54b1:0x5e8c893d5d75711f!8m2!3d-8.0586586!4d-34.9070191!16s%2Fg%2F11bysjrmjz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-
-                    <p class="mt-3"><strong>Outros Centros de Especialidade:</strong></p>
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Centro de Saúde Bidu Krause</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Centro de Especialidades Odontológicas (CEO)</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
-                        <div class="list-group-item">
-                            <h6 class="mb-1">Centro de Testagem e Aconselhamento (CTA)</h6>
-                            <small>
-                                <a href="--adicionar link--" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a>
-                            </small>
-                        </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Arnaldo Marques - Ibura</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+e+Maternidade+Professor+Arnaldo+Marques/@-8.1204115,-34.945308,17z/data=!4m6!3m5!1s0x7ab1e7ab43f1f9b:0xb5f468aa9c5f9658!8m2!3d-8.1204009!4d-34.9441707!16s%2Fg%2F1ptznfrxf?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
                     </div>
-                    
-                    <hr>
-                    <p><strong>Atenção Básica (Porta de entrada):</strong><br>
-                        Existem mais de 150 Unidades de Saúde da Família (USF) e Unidades Básicas Tradicionais (UBT) espalhadas pelos bairros. Elas não são para emergência, mas são a porta de entrada para agendar especialidades.
-                    </p>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Clementino Fraga - Vasco da Gama</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+Clementino+Fraga/@-8.0196895,-34.9212192,17z/data=!4m6!3m5!1s0x7ab19b99834e23b:0x94589f0aa8a29eeb!8m2!3d-8.019477!4d-34.919685!16s%2Fg%2F1tknkn79?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Albert Sabin - Tamarineira</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+Albert+Sabin/@-8.0340809,-34.9066884,17z/data=!4m6!3m5!1s0x7ab1854e14158d1:0xe123c86f4934bfbb!8m2!3d-8.0339428!4d-34.9052507!16s%2Fg%2F1tx1td9v?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Waldemar de Oliveira - Santo Amaro</h6>
+                        <small><a href="https://www.google.com/maps/place/Policl%C3%ADnica+Waldemar+de+Oliveira/@-8.0520189,-34.8860902,17z/data=!4m6!3m5!1s0x7ab18eb50eefe3f:0xee5bb985e8f6cce!8m2!3d-8.051987!4d-34.8848671!16s%2Fg%2F1tghdbkz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Policlínica Salomão Kelner - Água Fria</h6>
+                        <small><a href="https://www.google.com/maps/place/US+105+CS+Salom%C3%A3o+Kelner/@-8.021029,-34.8971508,17z/data=!4m6!3m5!1s0x7ab184880fde0e7:0xa9e177ae9dc1f39e!8m2!3d-8.020944!4d-34.8957024!16s%2Fg%2F11vjxdcgm8?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <p class="mt-3"><strong>Centros de Atenção Psicossocial (CAPS):</strong></p>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h6 class="mb-1">CAPS Espaço Azul (Infanto-Juvenil)</h6>
+                        <small><a href="https://www.google.com/maps/place/CAPS+Espa%C3%A7o+Azul/@-8.0243818,-34.912075,17z/data=!4m6!3m5!1s0x7ab19b247fc74c1:0xd86fdd49f6b2f902!8m2!3d-8.0245199!4d-34.9107661!16s%2Fg%2F1tj5qyx6?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">CAPS Casa Forte</h6>
+                        <small><a href="https://www.google.com/maps/place/Centro+de+Aten%C3%A7%C3%A3o+Psicosocial+Casa+Forte+S%2FS/@-8.0294494,-34.9236714,17z/data=!4m6!3m5!1s0x7ab19a0d786accf:0x1617c6bbadef0574!8m2!3d-8.0295025!4d-34.9216222!16s%2Fg%2F1tf75qql?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
                 </div>
+                <p class="mt-3"><strong>Outros Centros de Especialidade:</strong></p>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Centro de Saúde Bidu Krause</h6>
+                        <small><a href="https://www.google.com/maps/place/USF+%2B+Bidu+Krause/@-8.0798179,-34.9739443,16z/data=!4m6!3m5!1s0x7ab1d0052fede91:0x64b9b86cd669f63c!8m2!3d-8.0797525!4d-34.9705667!16s%2Fg%2F11vxnznh83?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Centro de Especialidades Odontológicas (CEO)</h6>
+                        <small><a href="https://www.google.com/maps/place/CEO+-+Centro+de+Especialidades+Odontol%C3%B3gicas/@-8.0473032,-34.9512346,16z/data=!4m6!3m5!1s0x7ab19610bb7dee7:0xca666cf99dc1d0e8!8m2!3d-8.047351!4d-34.9476404!16s%2Fg%2F11fy27_2xz?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                    <div class="list-group-item">
+                        <h6 class="mb-1">Centro de Testagem e Aconselhamento (CTA)</h6>
+                        <small><a href="https://www.google.com/maps/place/US+168+Cta+Centro+de+Testagem+e+Aconselhamento/@-8.0625131,-34.8919701,17z/data=!4m6!3m5!1s0x7ab18c42861d79f:0x2f85ce274e90c6ec!8m2!3d-8.0623431!4d-34.8901998!16s%2Fg%2F11vm165s6j?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-sm btn-outline-primary mt-1">Ver no Mapa</a></small>
+                    </div>
+                </div>
+                <hr>
+                <p><strong>Atenção Básica (Porta de entrada):</strong><br>
+                    Existem mais de 150 Unidades de Saúde da Família (USF) e Unidades Básicas Tradicionais (UBT) espalhadas pelos bairros. Elas não são para emergência, mas são a porta de entrada para agendar especialidades.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
-</div>
-
-</div>
   </div>
 
   <footer class="rodape">
-
     <div class="container">
       <div class="row">
-
         <div class="rodape-col-1">
           <h3>Baixe o nosso app</h3>
           <p>Baixe o nosso aplicativo nas melhores plataformas.</p>
@@ -457,11 +322,9 @@
             <img src="img/apple.png" alt="">
           </div>
         </div>
-
         <div class="rodape-col-2">
           <img src="img/logo.jpeg" alt="GUR">
         </div>
-
         <div class="rodape-col-3">
           <h3>Mais Informações</h3>
           <ul>
@@ -469,51 +332,48 @@
             <li style="cursor: pointer;">Contatos</li>
           </ul>
         </div>
-
       </div>
       <hr>
-      <p class="direitos">
-        &#169; Todos os Direitos Reservados.
-      </p>
-
+      <p class="direitos">© Todos os Direitos Reservados.</p>
     </div>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    
+    $(document).ready(function(){
+      $('a[href^="#"]').on('click', function(event) {
+        var target = $(this.getAttribute('href'));
+        if( target.length ) {
+            event.preventDefault();
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top
+            }, 1000); 
+        }
+      });
+    });
+
     const SINTOMAS_VALIDOS = [
-        
-        // --- Sintomas Gerais ---
         { id: 1, nome: "Febre alta (acima de 38°C)" },
         { id: 2, nome: "Febre baixa (até 38°C)" },
         { id: 3, nome: "Cansaço extremo ou Fadiga" },
         { id: 4, nome: "Calafrios" },
         { id: 5, nome: "Suor excessivo" },
-
-        // --- Dores (Geral) ---
         { id: 10, nome: "Dor de cabeça" },
         { id: 12, nome: "Dor de barriga" }, 
         { id: 13, nome: "Dor nas costas" },
         { id: 14, nome: "Dor muscular" }, 
         { id: 15, nome: "Dor nas articulações" },
-
-        // --- Trauma / Lesão ---
         { id: 20, nome: "Dor intensa após queda ou pancada" },
         { id: 22, nome: "Não consegue mover o membro (Suspeita de Fratura)" },
         { id: 23, nome: "Corte" }, 
         { id: 26, nome: "Queimadura" }, 
-
-        // --- Respiratório e Garganta ---
         { id: 32, nome: "Tosse seca" },
         { id: 33, nome: "Tosse com catarro" }, 
         { id: 34, nome: "Chiado no peito" }, 
         { id: 35, nome: "Dor de garganta" },
-
-        // --- Digestivo / Gastro ---
         { id: 40, nome: "Enjoo" }, 
         { id: 41, nome: "Vômito" },
         { id: 42, nome: "Diarreia" },
@@ -521,19 +381,13 @@
         { id: 44, nome: "Azia ou Queimação" },
         { id: 45, nome: "Perda de apetite" },
         { id: 46, nome: "Gases" }, 
-
-        // --- Neurológico / Cabeça  ---
         { id: 50, nome: "Tontura" }, 
-
-        // --- Sintomas Comuns / "Sociais" ---
         { id: 60, nome: "Coriza" }, 
         { id: 61, nome: "Mal-estar" }, 
         { id: 62, nome: "Crise de ansiedade" }, 
         { id: 63, nome: "Olho vermelho ou irritado" },
         { id: 64, nome: "Coceira na pele" },
         { id: 65, nome: "Espirros" }, 
-
-        // --- Outros ---
         { id: 70, nome: "Sangramento na urina" },
         { id: 71, nome: "Sangramento nas fezes" },
         { id: 72, nome: "Dor ao urinar" }, 
@@ -542,14 +396,19 @@
 
     const inputSintoma = document.getElementById('sintoma'); 
     const inputIdade = document.getElementById('idade');
+    const selectComorbidade = document.getElementById('comorbidade'); 
     const form = document.querySelector('form');
 
     const wrapper = inputSintoma.parentElement; 
-    wrapper.classList.add('autocomplete-wrapper'); 
+    wrapper.style.position = "relative"; 
     
     const resultBox = document.createElement('div');
     resultBox.classList.add('autocomplete-results');
     
+    resultBox.style.position = 'absolute';
+    resultBox.style.top = '100%';
+    resultBox.style.left = '0';
+    resultBox.style.width = '100%';
     resultBox.style.backgroundColor = 'white';
     resultBox.style.border = '1px solid #ccc';
     resultBox.style.borderTop = 'none';
@@ -557,6 +416,7 @@
     resultBox.style.display = 'none';
     resultBox.style.maxHeight = '200px'; 
     resultBox.style.overflowY = 'auto';
+    resultBox.style.zIndex = '1000';
     resultBox.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
     
     wrapper.appendChild(resultBox);
@@ -585,6 +445,7 @@
                 item.style.borderBottom = '1px solid #eee';
                 item.style.color = '#333';
                 item.style.fontSize = '18px';
+                item.style.fontFamily = 'sans-serif';
                 
                 item.onmouseover = () => item.style.backgroundColor = '#f0f0f0';
                 item.onmouseout = () => item.style.backgroundColor = 'white';
@@ -608,18 +469,15 @@
         }
     });
 
-  
     form.addEventListener('submit', (e) => {
         e.preventDefault(); 
 
         const sintomaValor = inputSintoma.value;
         const idadeValor = inputIdade.value;
-        
-        const comorbidadeRadio = document.querySelector('input[name="comorbidade"]:checked');
-        const comorbidadeValor = comorbidadeRadio ? comorbidadeRadio.value : null;
+        const comorbidadeValor = selectComorbidade.value;
 
-        if (!sintomaValor || !idadeValor || !comorbidadeValor) {
-            alert("Por favor, preencha todos os campos e marque Sim ou Não na comorbidade.");
+        if (!sintomaValor || !idadeValor || comorbidadeValor === "") {
+            alert("Por favor, preencha todos os campos.");
             return;
         }
 
@@ -630,11 +488,10 @@
         };
 
         console.log("Enviando:", dadosFinais);
-        alert("Dados capturados com sucesso! Verifique o console (F12).");
+        alert(`Dados capturados com sucesso!\nSintoma: ${dadosFinais.sintoma}\nIdade: ${dadosFinais.idade}\nComorbidade: ${dadosFinais.comorbidade}`);
         
     });
 </script>
 
 </body>
-
 </html>
