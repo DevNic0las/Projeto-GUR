@@ -20,3 +20,4 @@ SINTOMAS_BASE = {
     "Falta de ar": {"categorias": ["Pneumologia", "Cardiologia", "Psiquiatria"], "prob": [0.5, 0.3, 0.2], "complexidade": "alta", "gravidade": "grave"},
     "Convulsão": {"categorias": ["Neurologia", "Emergência"], "prob": [0.7, 0.3], "complexidade": "alta", "gravidade": "alta"}
 }
+SINTOMAS_PROCAPE = ["Dor no peito", "Coração acelerado", "Falta de ar"]

@@ -1,30 +1,70 @@
 from pipelines.pipeline_base import BasePipeline
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import *
-import os
-import sys
+from pyspark.sql import functions as F
+from pyspark.sql.types import IntegerType, TimestampType
 
-class DateBasicPipeline(BasePipeline):
+class DatasetOcupacaoPipeline(BasePipeline):
     def __init__(self):
-        super().__init__("DateBasicPipeline")  
-    
+        super().__init__("DatasetOcupacaoPipeline")
+
     def execute_pre_processing(self):
-        # Extrair dados
-        df: DataFrame = self.extract_data('../data/csv/hospitais_info.csv')
-        df = df.withColumn("especialidades_array", split(col("especialidades"), ",\s*"))
-        # Criar array de especialidades
-        df_exploded = df.withColumn("especialidade", explode(col("especialidades_array")))
+       
+        df = self.extract_data('../data/csv/dataset_ocupacao_hospitalar.csv') 
 
-# Agrupamento por tipo de hospital e especialidade
-        df_tipo_especialidade_agg = df_exploded.groupBy("tipo_hospital", "especialidade").agg(
-            count("*").alias("qtd_hospitais"),                 # Quantos hospitais desse tipo têm essa especialidade
-            avg("lotacao_atual").alias("media_lotacao"),       # Média de lotação
-            avg("capacidade_UTI").alias("media_UTI"),         # Média de UTIs
-            (max("tempo_espera_medio") - min("tempo_espera_medio")).alias("delta_espera")  # Variação do tempo de espera
-        ).orderBy(col("qtd_hospitais").desc())
-      
-        df_tipo_especialidade_agg.show(truncate=False)
+        df_clean = (df
+           
+            .withColumn("timestamp", F.to_timestamp(F.col("timestamp")))
+            
+            
+            .withColumn("unidade_id", F.trim(F.col("unidade_id")))
+            .withColumn("unidade_nome", F.lower(F.trim(F.col("unidade_nome"))))
+            .withColumn("unidade_nome", F.coalesce(F.col("unidade_nome"), F.lit("nome_nao_informado")))
+            
+            
+            .withColumn("tipo_unidade", F.lower(F.trim(F.col("tipo_unidade"))))
+            .withColumn("tipo_unidade", F.coalesce(F.col("tipo_unidade"), F.lit("indefinido")))
+            
+            .withColumn("tipo_leito", F.lower(F.trim(F.col("tipo_leito"))))
+            .withColumn("tipo_leito", F.coalesce(F.col("tipo_leito"), F.lit("indefinido")))
 
+           
+            .withColumn("capacidade", F.col("capacidade").cast(IntegerType()))
+            .withColumn("capacidade", F.coalesce(F.col("capacidade"), F.lit(0)))
+            
+            .withColumn("ocupados", F.col("ocupados").cast(IntegerType()))
+            .withColumn("ocupados", F.coalesce(F.col("ocupados"), F.lit(0)))
+            
+            .withColumn("disponiveis", F.col("disponiveis").cast(IntegerType()))
+            
+            .withColumn("disponiveis", 
+                        F.when(F.col("disponiveis").isNull(), F.col("capacidade") - F.col("ocupados"))
+                         .otherwise(F.col("disponiveis")))
+        )
+
+        
+        df_features = (df_clean
+            
+            .withColumn("taxa_ocupacao", 
+                        F.when(F.col("capacidade") > 0, F.col("ocupados") / F.col("capacidade"))
+                         .otherwise(F.lit(0.0)))
+            .withColumn("lotacao_critica", 
+                        F.when(F.col("taxa_ocupacao") >= 0.9, F.lit(1))
+                         .otherwise(F.lit(0)))
+        )
+        
+        return df_features
+
+    def save_result(self, df: DataFrame, path: str):
+        print(f"Salvando dados processados em: {path}")
+        (df.write
+         .mode('overwrite')
+         .option("compression", "snappy")
+         .parquet(path)
+        )
 if __name__ == "__main__":
-    obj = DateBasicPipeline()
-    obj.execute_pre_processing()
+    pipeline = DatasetOcupacaoPipeline()
+    df_result = pipeline.execute_pre_processing()
+    print("Pre processamento")
+    df_result.show(20, truncate=False)
+    pipeline.save_result(df_result, "../data/parquet/dataset_hospitais.parquet")
+    print("processamento concluido")

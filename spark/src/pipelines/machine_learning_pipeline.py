@@ -4,23 +4,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, top_k_accuracy_score, accuracy_score
 import numpy as np
 
-# --- CONFIGURAÇÕES DE ARQUIVO E MODELO ---
-# ATENÇÃO: Verifique se este caminho está montado corretamente no seu Colab
+
 PATH_FILE = "/content/drive/MyDrive/dataset_triagem_corrigido_v6Final_1M.csv"
 MODEL_FILENAME = "modelo_triagem_catboost_v10_final_definitivo.cbm"
 
 print("📥 Carregando dados...")
 df = pd.read_csv(PATH_FILE)
 
-# ✅ CONVERSÕES DE SEGURANÇA
+
 df['Zona_Residencia'] = df['Zona_Residencia'].astype(str)
 df['Sintoma'] = df['Sintoma'].astype(str)
 
-# --- FUNÇÃO DE FEATURE ENGINEERING (Recria features usadas no treinamento) ---
+
 def criar_features_especificas_upas(df):
     df_feat = df.copy()
 
-    # 🗺️ MAPA GEOGRÁFICO REALISTA (Usado APENAS para criar Score_Proximidade)
+   
     proximidade_map = {
         'Zona Oeste': {
             'UPA Caxangá': 1.0, 'UPA Torrões': 0.9, 'HGV': 0.8, 'HC/UFPE': 0.7, 'HBL': 0.7,
@@ -46,17 +45,17 @@ def criar_features_especificas_upas(df):
             axis=1
         )
     else:
-        # Modo de Predição: Usamos 0.5 como neutro se o Hospital_Recomendado for desconhecido
+      
         df_feat['Score_Proximidade'] = 0.5
 
-    # ✅ Score de lotação inteligente
+
     df_feat['Score_Lotacao'] = 1 - df_feat['Lotacao_No_Momento']
 
     return df_feat
 
 df = criar_features_especificas_upas(df)
 
-# ✅ FEATURES OTIMIZADAS
+
 cols_features = [
     "Sintoma", "Comorbidades", "Idade",
     "Complexidade", "Gravidade", "Horario",
@@ -70,39 +69,35 @@ cat_cols = [
     "Zona_Residencia"
 ]
 
-# ✅ GARANTIR TIPOS
+
 for col in cat_cols:
     df[col] = df[col].astype(str)
 
 X = df[cols_features]
 y = df["Hospital_Recomendado"]
 
-# --- DIVISÃO DO DATASET ---
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
 )
 
-# ----------------------------------------------------------------------
-# 💾 SALVANDO O CONJUNTO DE TESTE EM CSV
-# ----------------------------------------------------------------------
+
 
 TEST_X_FILENAME = "X_test_features.csv"
 TEST_Y_FILENAME = "y_test_target.csv"
 
 try:
-    # 1. Salva as FEATURES do conjunto de Teste (X_test)
+
     X_test.to_csv(TEST_X_FILENAME, index=False)
     
-    # 2. Salva o TARGET (rótulos) do conjunto de Teste (y_test)
+    
     y_test.to_csv(TEST_Y_FILENAME, index=False, header=True)
     
-    print(f"\n✅ Conjunto de Teste de Features (X_test) salvo em: {TEST_X_FILENAME}")
-    print(f"✅ Conjunto de Teste de Target (y_test) salvo em: {TEST_Y_FILENAME}")
+    print(f"\n Conjunto de Teste de Features (X_test) salvo em: {TEST_X_FILENAME}")
+    print(f"  Conjunto de Teste de Target (y_test) salvo em: {TEST_Y_FILENAME}")
 except Exception as e:
-    print(f"\n⚠️ ERRO ao salvar os arquivos CSV. Verifique permissões de disco: {e}")
+    print(f"\n ERRO ao salvar os arquivos CSV. Verifique permissões de disco: {e}")
 
-# --- TREINAMENTO DO MODELO ---
-print("🚀 Treinando modelo com geografia CORRIGIDA...")
 
 model = CatBoostClassifier(
     iterations=800,
@@ -119,48 +114,48 @@ model = CatBoostClassifier(
 model.fit(X_train, y_train, cat_features=cat_cols, eval_set=(X_test, y_test), logging_level='Silent')
 
 
-# --- AVALIAÇÃO ---
+
 y_pred = model.predict(X_test)
-print("\n📈 RELATÓRIO DE CLASSIFICAÇÃO:")
+print("\n RELATÓRIO DE CLASSIFICAÇÃO:")
 print(classification_report(y_test, y_pred))
 
-# ✅ FOCO NAS UPAs
+
 upas_mask = y_test.str.contains('UPA')
 if upas_mask.any():
     y_test_upas = y_test[upas_mask]
     y_pred_upas = y_pred[upas_mask]
-    print("\n🎯 UPAs COM GEOGRAFIA CORRIGIDA:")
+   
     print(classification_report(y_test_upas, y_pred_upas, zero_division=0))
 
-# --- SALVAMENTO DO MODELO ---
-print(f"\n💾 Salvando o modelo treinado em {MODEL_FILENAME}...")
+
+print(f"\n Salvando o modelo treinado em {MODEL_FILENAME}...")
 model.save_model(MODEL_FILENAME, format="cbm")
-print("✅ Modelo salvo com sucesso.")
+print("Modelo salvo com sucesso.")
 
 
-# --- TESTE COM NOVA AMOSTRA DE FEATURES ---
+
 def realizar_predicao_triagem(modelo, nova_amostra_dict, cols_features):
-    # Converte o dicionário em DataFrame, mantendo a ordem das colunas
+   
     df_amostra = pd.DataFrame([nova_amostra_dict])
 
-    # Adiciona e calcula as features de engenharia
+   
     df_amostra_feat = criar_features_especificas_upas(df_amostra)
 
-    # Seleciona APENAS as colunas de features na ordem correta
+    
     X_predict = df_amostra_feat[cols_features]
 
-    # Garante que as colunas categóricas são strings
+  
     for col in cat_cols:
         if col in X_predict.columns:
             X_predict[col] = X_predict[col].astype(str)
-
-    # 1. Predição da Classe (Hospital)
+            
+ 
     hospital_recomendado = modelo.predict(X_predict)[0]
 
-    # 2. Predição da Probabilidade (Matriz de Score)
+
     probabilidades = modelo.predict_proba(X_predict)[0]
 
-    # Mapeia as probabilidades para os nomes dos hospitais
+ 
     classes = modelo.classes_
     scores = pd.Series(probabilidades, index=classes).sort_values(ascending=False)
 
@@ -177,11 +172,11 @@ nova_amostra = {
     "Lotacao_No_Momento": 0.4
 }
 
-print("\n--- 🏥 Simulação de Triagem em Tempo Real ---")
+print("\n- Simulação de Triagem em Tempo Real ---")
 print(f"**Paciente:** {nova_amostra['Sintoma']} | {nova_amostra['Zona_Residencia']} | {nova_amostra['Gravidade']}")
 
 hospital, scores_prob = realizar_predicao_triagem(model, nova_amostra, cols_features)
 
-print(f"\n✅ RECOMENDAÇÃO FINAL: **{hospital}**")
-print("\nMatriz de Probabilidades (Top 5):")
+print(f"\n RECOMENDAÇÃO FINAL: **{hospital}**")
+print("\n Matriz de Probabilidades (Top 5):")
 print(scores_prob.head())
