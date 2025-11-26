@@ -25,6 +25,6 @@ class BasePipeline:
         return df.write.mode("overwrite").option("header", "true").parquet(path)
 
     def execute_analysis(self)->DataFrame:
-            raise NotImplementedError("Cada análise implementa isso!")
+            raise NotImplementedError("Cada análise implementa isso")
     def execute_pre_processing(self):
         raise NotImplementedError("Implementar")

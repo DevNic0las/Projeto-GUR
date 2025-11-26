@@ -5,11 +5,11 @@ import numpy as np
 
 print("Carregando modelo e dados...")
 model = CatBoostClassifier()
-model.load_model('./modelo_triagem_catboost_v7_final_definitivo.cbm')
+model.load_model('./modelo_triagem_catboost_v7_final.cbm')
 
 
-X_test = pd.read_csv('/content/X_test_features.csv') 
-y_test = pd.read_csv('/content/y_test_target.csv')
+X_test = pd.read_csv('./X_test_features.csv') 
+y_test = pd.read_csv('./y_test_target.csv')
 
 
 print("Executando predições...")
@@ -36,4 +36,4 @@ print(df_performance[['Hospital_Real', 'Hospital_Predito', 'Confianca_Predita', 
 OUTPUT_FILENAME = "analise_performance_catboost.csv"
 df_performance.to_csv(OUTPUT_FILENAME, index=False)
 
-print(f"\n✅ Tabela Fato de Desempenho criada e salva em: {OUTPUT_FILENAME}")
+print(f"\nTabela Fato de Desempenho criada: {OUTPUT_FILENAME}")

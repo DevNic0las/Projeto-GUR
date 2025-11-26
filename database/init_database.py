@@ -2,13 +2,13 @@ from pymongo import MongoClient
 
 
 def create_hospitals_collection(db):
-    """Cria a coleção hospitals SEM schema validation (livre)"""
+  
     if "hospitals" not in db.list_collection_names():
-        # Cria a coleção simples, aceitando qualquer formato de dado
+       
         db.create_collection("hospitals")
-        print("✅ Coleção 'hospitals' criada SEM schema!")
+        print("Coleção 'hospitals' criada SEM schema!")
     else:
-        print("✅ Coleção 'hospitals' já existe!")
+        print("Coleção 'hospitals' já existe!")
     
     return db.hospitals
 
@@ -31,7 +31,7 @@ def initdatabase():
     )
     client.admin.command('ping')
     
-    print("✅ Conectado ao MongoDB no Docker!")
+    print("Conectado ao MongoDB no Docker!")
     db = client['database']
     hospital_col = create_hospitals_collection(db)
     disease_col = create_illness_collection(db)  

@@ -1,11 +1,11 @@
 from database.init_database import initdatabase
 def insert_data_hospitals(hospitals):
-    """Insere uma lista de hospitais no banco de dados."""
+   
     hospitals_col = initdatabase()
     hospitals_col.insert_many(hospitals)
 
 def insert_data_deases(diseases):
-    """Insere uma lista de doenças no banco de dados."""
+   
     diseases_col = initdatabase()
     diseases_col.insert_many(diseases)
     

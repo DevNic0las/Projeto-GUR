@@ -6,11 +6,8 @@ from datetime import datetime
 import pandas as pd
 
 
-def criar_features_especificas_upas(df):
-    """
-    Cria as features Score_Proximidade e Score_Lotacao. 
-    Para predição (sem 'Hospital_Recomendado'), usa o score máximo de proximidade para a zona.
-    """
+def criar_features_especificas_upas(df ,hospital_alvo=None):
+   
     proximidade_map = {
         'Zona Oeste': {
             'UPA Caxangá': 1.0, 'UPA Torrões': 0.9, 'HGV': 0.8, 'HC/UFPE': 0.7, 'HBL': 0.7,
@@ -36,12 +33,14 @@ def criar_features_especificas_upas(df):
             lambda x: proximidade_map.get(x['Zona_Residencia'], {}).get(x['Hospital_Recomendado'], 0.1),
             axis=1
         )
+    elif hospital_alvo: 
+         df_feat['Score_Proximidade'] = proximidade_map.get(df_feat['Zona_Residencia'].iloc[0], {}).get(hospital_alvo, 0.9)
     else:
         def calcular_score_zona(zona):
             if zona in proximidade_map:
                 scores = list(proximidade_map[zona].values())
                 return max(scores)  
-            return 0.7  # Fallback
+            return 0.7  
         
         df_feat['Score_Proximidade'] = df_feat['Zona_Residencia'].apply(calcular_score_zona)
 
@@ -91,16 +90,16 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
         if not data:
             return jsonify({"error": "JSON de dados não enviado"}), 400
 
-        # 1. TRATAMENTO DO HORÁRIO (3 categorias: Madrugada, Diurno, Noturno)
+      
         horario_agora = datetime.now().hour
         if horario_agora >= 0 and horario_agora < 6:
             horario = "Madrugada"               
         elif horario_agora >= 6 and horario_agora < 18:               
             horario = "Diurno" 
-        else: # 18h - 24h
+        else: 
             horario = "Noturno"
             
-        # 2. COLETA E VALIDAÇÃO DE DADOS
+      
         sintoma = data.get("sintoma")
         zona = data.get("zona")
         idade = data.get("idade")
@@ -108,28 +107,28 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
         # Usa lotação do input ou default 0.7
         lotacao = data.get("lotacao", 0.7) 
         
-        # Validação de campos obrigatórios
+      
         if not all([sintoma, zona, idade, comorbidade]):
             return jsonify({"error": "Campos obrigatórios (sintoma, zona, idade, comorbidade) faltando."}), 400
 
-        # Validação do sintoma: se não estiver na base, retorna erro.
+      
         if sintoma not in SINTOMAS_BASE:
             return jsonify({"error": f"Sintoma '{sintoma}' não reconhecido"}), 400
         
-        # 3. EXTRAÇÃO E AJUSTE DA GRAVIDADE 
+        
         info_sintoma = SINTOMAS_BASE[sintoma]
         complexidade = info_sintoma['complexidade']
         gravidade_base = info_sintoma['gravidade']
         
-        # APLICAÇÃO DA REGRA CLÍNICA 1: Fragilidade Geriátrica
+        
         gravidade_ajustada = ajustar_gravidade_por_idade(gravidade_base, idade)
-        
-        
-        if sintoma in SINTOMAS_PROCAPE and zona == "Centro":
-            gravidade_ajustada = "emergencia"
+    
+        target_hospital = None
+        if sintoma in SINTOMAS_PROCAPE: 
+            gravidade_ajustada = "grave"
             complexidade = "alta"
-            
-        # 4. MONTAGEM DO DICIONÁRIO DE DADOS
+            target_hospital = "PROCAPE"
+     
         dados_paciente = {
             "Sintoma": sintoma,
             "Comorbidades": comorbidade,
@@ -142,13 +141,13 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
         }    
             
         try:
-            # 5. PREDIÇÃO
+          
             df_amostra = pd.DataFrame([dados_paciente])
-            df_com_features = criar_features_especificas_upas(df_amostra) 
-                
+            df_com_features = criar_features_especificas_upas(df_amostra, hospital_alvo=target_hospital) 
+           
             features_esperadas = list(model_catboost.feature_names_)
                 
-            # Converte features categóricas para string (boa prática)
+           
             for col in ['Sintoma', 'Comorbidades', 'Complexidade', 'Gravidade', 'Horario', 'Zona_Residencia']:
                 if col in df_com_features.columns:
                     df_com_features[col] = df_com_features[col].astype(str)
@@ -157,29 +156,29 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
                 
             predicao = model_catboost.predict(X_pred).flatten()[0]
                 
-            # 6. RETORNO PADRONIZADO
+          
             hospital_name = str(predicao)
         
                 
-            # Apenas para o caso específico do HC/UFPE
+          
             if hospital_name == "HC/UFPE":
-                hospital_name = "Hospital das Clínicas (HC/UFPE)"
+                hospital_name = "Hospital das Clínicas"
                 hospital_url = "hospital-das-clinicas-hc-ufpe"
 
-            # Garante que o retorno é sempre consistente
+          
             return jsonify({
                 "hospital_name": hospital_name, 
                 "redirect_url": f"/hospital/{hospital_name}"
             }), 200   
             
         except Exception as e:
-            # Retorna o erro de forma segura
+           
             print(f"Erro inesperado durante a predição: {e}")
             return jsonify({"error": f"Erro interno na predição: {str(e)}"}), 500
     
     @web.route("/test/predict")
     def test_predict():
-        # Indentação corrigida em todo o bloco da função
+      
         dados_paciente_teste = {
             "Sintoma": "Dor de cabeça",
             "Comorbidades": "nenhum",
@@ -191,7 +190,7 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
             "Lotacao_No_Momento": 0.4   
         }
         
-        # Verifica se o modelo está carregado antes de prosseguir
+       
         if model_catboost is None:
             return jsonify({"success": False, "error": "Modelo de predição não carregado"}), 500
     
@@ -201,7 +200,7 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
             features_esperadas = model_catboost.feature_names_
             X_pred = df_com_features[features_esperadas]
         
-            # Faz a predição (geralmente retorna um numpy array)
+           
             predicao = model_catboost.predict(X_pred).flatten()[0]
             
             resultado_json = {
@@ -209,14 +208,16 @@ def create_blueprint(hospital_col: MongoClient, model_catboost):
                 "hospital_sugerido": str(predicao) 
             }
 
-            # Redireciona para a página de detalhes do hospital sugerido
+           
             return redirect(url_for("web.details_hospitals", name_hospital=resultado_json['hospital_sugerido']))
 
         except Exception as e:
-            print(f"❌ Erro detalhado no teste de predição: {str(e)}")
+            print(f"Erro  no teste de predição: {str(e)}")
             return jsonify({
                 "success": False,
                 "error": str(e)
             }), 500
-    
+    @web.route("/dashboard")
+    def dashboard():
+       return render_template("dashboard.html")
     return web

@@ -6,9 +6,9 @@ import numpy as np
 
 
 PATH_FILE = "/content/drive/MyDrive/dataset_triagem_corrigido_v6Final_1M.csv"
-MODEL_FILENAME = "modelo_triagem_catboost_v10_final_definitivo.cbm"
+MODEL_FILENAME = "modelo_triagem_catboost_v7_final.cbm"
 
-print("📥 Carregando dados...")
+print("carregando dados...")
 df = pd.read_csv(PATH_FILE)
 
 
