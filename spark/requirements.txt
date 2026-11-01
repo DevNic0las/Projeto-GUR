@@ -1,4 +1,9 @@
-pyspark==3.5.0
+# Dependências dos pipelines em spark/src.
+# NÃO declarar pyspark: a imagem base apache/spark:3.5.0 já traz o pacote em
+# /opt/spark/python (registrado no Dockerfile via spark.pth). Instalar via pip
+# duplicava ~342 MB.
+# NÃO declarar findspark: não é importado em nenhum arquivo do projeto.
 pandas==2.0.3
-findspark==2.0.1
+numpy
+scikit-learn
 catboost==1.2.8

@@ -13,6 +13,9 @@
 !spark/
 !spark/src/
 !spark/src/**/*
+!spark/.dockerignore
+!spark/Dockerfile
+!spark/requirements.txt
 !database/
 !database/**/*
 !shared/

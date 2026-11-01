@@ -29,6 +29,8 @@ services:
     profiles: ["backend"] 
     build:
       context: ./spark
+    # Imagem nomeada: os workers reaproveitam exatamente esta, sem rebuild.
+    image: projeto-gur-spark:latest
     container_name: spark-master 
     ports:
       - "8080:8080"  #Site
@@ -45,8 +47,7 @@ services:
 
   spark-worker-1:
     profiles: ["backend"]
-    build:
-      context: ./spark
+    image: projeto-gur-spark:latest
     container_name: spark-worker-1
     ports:
        - 8081:8081
@@ -66,8 +67,7 @@ services:
 
   spark-worker-2:  
     profiles: ["backend"]
-    build:
-      context: ./spark
+    image: projeto-gur-spark:latest
     container_name: spark-worker-2
     ports:
        - 8082:8082

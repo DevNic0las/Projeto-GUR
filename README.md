@@ -127,8 +127,8 @@ precisa de três ajustes:
    ```
    por um caminho local para o CSV.
 2. Trocar `task_type="GPU"` por `task_type="CPU"` (linha 107) se não houver GPU CatBoost disponível.
-3. Garantir `scikit-learn` e `numpy` instalados — ambos são usados, mas **não estão** em
-   `spark/requirements.txt`.
+3. As dependências de `spark/requirements.txt` já incluem `numpy` e `scikit-learn` (usados nas linhas
+   3-5). O que **não** está disponível é GPU: ver item 2.
 
 Depois:
 
@@ -203,6 +203,63 @@ Não verificado: se as imagens `apache/spark:3.5.0` e o entrypoint `spark-class`
 o `docker-compose` deste repositório (há um espaço extra em `SPARK_MASTER= spark://...` nos workers,
 o que provavelmente quebra a variável). O Flask **não precisa** do Spark para funcionar: ele só usa
 `pymongo` e `catboost`.
+
+---
+
+### Tamanho das imagens
+
+As dependências foram enxugadas e os três serviços Spark passaram a compartilhar uma única imagem
+(os workers usam `image: projeto-gur-spark:latest`, definida no `spark-master`; só o master tem
+`build`). Valores medidos com `docker build` nesta revisão:
+
+| Imagem | Antes | Depois |
+|---|---|---|
+| `flask-app` | 2,25 GB | **1,02 GB** |
+| `spark` (master + workers) | 3,19 GB × 3 = 9,57 GB | **2,39 GB** (imagem única) |
+
+O que saiu e por quê:
+
+- `pyspark` do `app/requirements.txt` — a API não importa Spark (342 MB).
+- `gunicorn`, `requests`, `python-dotenv` do `app/requirements.txt` — zero imports no código.
+- `findspark` do `spark/requirements.txt` — zero imports no código.
+- `pyspark` do `spark/requirements.txt` — a imagem base `apache/spark:3.5.0` já traz o pacote em
+  `/opt/spark/python`; instalar via pip criava uma cópia duplicada de 342 MB.
+- `gcc` + `libpq-dev` do `app/Dockerfile` — 251 MB instalados para compilar nada (libpq é do
+  PostgreSQL; o projeto usa MongoDB).
+- `matplotlib`, `plotly`, `graphviz` (+ `contourpy`, `cycler`, `fonttools`, `kiwisolver`, `pyparsing`,
+  `pillow`, `narwhals`) — dependências declaradas obrigatórias do `catboost`, mas nunca importadas
+  pelo código. Só `scipy`, entre elas, é realmente carregada no import do catboost.
+- Adicionados onde faltavam: `pandas` no app (usado em `routes.py:6`), `numpy` e `scikit-learn` no
+  spark (usados em `machine_learning_pipeline.py:3-5`).
+
+### Stack e dependências
+
+**`app/requirements.txt`** — 4 pacotes, todos com import efetivo no código:
+
+```
+flask==2.3.3
+pymongo==4.6.3
+catboost==1.2.8
+pandas
+```
+
+**`spark/requirements.txt`** — 4 pacotes; `pyspark` vem da imagem base, não do pip:
+
+```
+pandas==2.0.3
+numpy
+scikit-learn
+catboost==1.2.8
+```
+
+`pandas` é fixado em `2.0.3` no spark porque é a versão com que o treino foi escrito. No app deixe
+sem pin: testado que `pandas==2.0.3` com `numpy` 2.x quebra no import
+(`ValueError: numpy.dtype size changed`).
+
+**Outros componentes:** Flask 2.3.3, Jinja2, MongoDB (`mongo:latest`) + PyMongo 4.6.3, CatBoost 1.2.8,
+PySpark 3.5.0 (standalone: 1 master + 2 workers), Docker Compose, Bootstrap 4.5.2 via CDN.
+
+**Ausentes:** nenhum teste, nenhum lint/CI, nenhum lockfile, README sem instruções até esta revisão.
 
 ---
 
@@ -320,10 +377,10 @@ um todo depois do último commit.
 - Credenciais em claro (`admin` / `senha123`) em `docker-compose.yml` e `init_database.py`, MongoDB
   exposto na 27017, Flask com `debug=True` (`run.py:5`), e busca por regex com input do usuário
   (`routes.py:78-80`).
-- `findspark` está declarado mas não é usado em lugar nenhum; `pyspark` está em
-  `app/requirements.txt` mas a API não importa Spark (só os pipelines do diretório `spark/` usam).
 - Artefatos mortos: `app/templates/teste.html`, `database/scripts/verify_path.py`,
   `spark/src/utils/spark_session.py` (usado só pelos pipelines) e as imagens de gráficos sem gerador.
+- `machine_learning_pipeline.py` importa `sklearn` e `numpy`, mas nenhum dos dois estava declarado em
+  `spark/requirements.txt` (corrigido — ver seção 7).
 
 ---
 

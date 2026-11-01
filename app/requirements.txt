@@ -1,7 +1,4 @@
 flask==2.3.3
-gunicorn==21.2.0
-python-dotenv==1.1.1
-requests==2.31.0
-pyspark==3.5.0
 pymongo==4.6.3
 catboost==1.2.8
+pandas
